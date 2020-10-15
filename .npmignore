@@ -1,0 +1,8 @@
+.*
+*.config.js
+*.tgz
+*.tsbuildinfo
+**/*.test.ts
+build
+coverage
+tsconfig.*

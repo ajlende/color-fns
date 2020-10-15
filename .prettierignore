@@ -1,0 +1,7 @@
+.exclude
+.nyc_output
+build
+cjs
+coverage
+esm
+types

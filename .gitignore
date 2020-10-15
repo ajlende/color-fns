@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+
+# Output of 'npm pack'
+*.tgz
+
+# Build artifacts
+build
+cjs
+esm
+types
+
+# nyc test coverage
+.nyc_output
+coverage
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Eslint cache
+.eslintcache
+
+# Editors
+.idea
+.vscode
+
+# Temp folder
+.exclude
