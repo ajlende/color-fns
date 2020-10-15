@@ -2,7 +2,10 @@
 // Internal color representation
 // -------------------------------------
 
-// TODO: Vec4 (internal representation, also useful for WebGL)
+// Vec4 (internal representation, also useful for WebGL)
+export { default as fromVec4 } from "./fromVec4"
+export { default as isVec4 } from "./isVec4"
+export { default as toVec4 } from "./toVec4"
 
 // -------------------------------------
 // Matlab Colorspaces (https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/28790/versions/5/previews/colorspace/colorspace.html#CUsage)

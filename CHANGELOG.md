@@ -13,6 +13,9 @@ This change log follows the format documented in [Keep a CHANGELOG].
 ### Added
 
 - `convert`
+- `fromVec4`
+- `isVec4`
+- `toVec4`
 
 
 [unreleased]: https://github.com/ajlende/color-fns/compare/v0.0.0...HEAD
