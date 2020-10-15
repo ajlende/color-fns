@@ -53,7 +53,10 @@ export { default as toVec4 } from "./toVec4"
 
 // @see https://github.com/stayradiated/colr for fast implementations
 
-// TODO: sRGB Hexadecimal: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
+// sRGB Hexadecimal: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
+export { default as fromHex } from "./fromHex"
+export { default as isHex } from "./isHex"
+export { default as toHex } from "./toHex"
 
 // TODO: sRGB Functions: rgb() and rgba()
 

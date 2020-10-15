@@ -13,8 +13,11 @@ This change log follows the format documented in [Keep a CHANGELOG].
 ### Added
 
 - `convert`
+- `fromHex`
 - `fromVec4`
+- `isHex`
 - `isVec4`
+- `toHex`
 - `toVec4`
 
 
