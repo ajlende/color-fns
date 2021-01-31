@@ -98,9 +98,11 @@ export { default as toHex } from "./toHex"
 // Group parsing functions
 // -------------------------------------
 
-// TODO: Parse(parsers, color)
+// Parse(parsers, color)
+export { default as parse } from "./parse"
 
-// TODO: FromAny(color)
+// FromAny(color)
+export { default as fromAny } from "./fromAny"
 
 // TODO: FromCss(color)
 
