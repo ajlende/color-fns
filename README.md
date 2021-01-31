@@ -12,8 +12,8 @@ It's like [date-fns](https://date-fns.org) for colors.
 ```js
 import { convert, fromHex, toVec4 } from "color-fns"
 
-convert(fromHex, toVec4, "#FF6633")
-//=> [ 1, .4, .2, 1 ]
+convert(fromAny, toHex, [0.2, 0.4, 0.6, 1])
+//=> "#336699"
 ```
 
 ## License
