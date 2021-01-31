@@ -1,6 +1,6 @@
 {
 	"name": "color-fns",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Functional color utility library",
 	"repository": "https://github.com/ajlende/color-fns",
 	"license": "MIT",

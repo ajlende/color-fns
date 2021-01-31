@@ -10,6 +10,8 @@ This change log follows the format documented in [Keep a CHANGELOG].
 
 ## [Unreleased]
 
+## [0.1.0] - 2021-01-31
+
 ### Added
 
 - `convert`
@@ -22,5 +24,5 @@ This change log follows the format documented in [Keep a CHANGELOG].
 - `toHex`
 - `toVec4`
 
-
-[unreleased]: https://github.com/ajlende/color-fns/compare/v0.0.0...HEAD
+[unreleased]: https://github.com/ajlende/color-fns/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/ajlende/color-fns/compare/v0.0.0...v0.1.0
