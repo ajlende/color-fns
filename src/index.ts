@@ -64,7 +64,10 @@ export { default as fromHex } from "./fromHex"
 export { default as isHex } from "./isHex"
 export { default as toHex } from "./toHex"
 
-// TODO: sRGB Functions: rgb() and rgba()
+// sRGB Functions: rgb() and rgba()
+export { default as fromRgbString } from "./fromRgbString"
+export { default as isRgbString } from "./isRgbString"
+export { default as toRgbString } from "./toRgbString"
 
 // TODO: Color keywords: named, transparent, currentcolor? (probably not accessible), system? (deprecated in CSS3)
 
