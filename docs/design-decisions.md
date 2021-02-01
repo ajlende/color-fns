@@ -13,6 +13,10 @@ The intermediary color format is stored as a `Vec4` or rather an array of number
 
 [colr-convert]: https://github.com/stayradiated/colr/blob/master/index.js
 
+## CSS Color Strings
+
+Color strings in CSS can be quite complicated—even something as simple as a number has rules for `+` or `-` signs and exponent `e` or `E` in the spec. Matching the CSS spec exactly pretty much requires proper tokenization and parsing, so for the sake of this library, I'm keeping the parsing to something that can be handled with (what I consider to be) a readable regular expression. This means that some technically valid, yet uncommon use-cases may result in errors. Fortunately if a more specific parser is required for your use-case, you can write your own and successfully plug it in to handle those edge cases.
+
 ## Errors
 
 Parsing colors has a lot of opportunity for a wide variety of errors. I've always found the try/catch mechanism really clunky so there are a couple other options: returning the error or returning null. I like how `Maybe` works in other languages, but in TypeScript it requires an awkward switch/case or if/else _and_ an awkward object wrapper.
