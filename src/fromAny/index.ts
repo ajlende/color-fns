@@ -1,4 +1,11 @@
-import { Color, ExtractParserTypes, Hex, Parser, Vec4 } from "../types"
+import {
+	Color,
+	ExtractParserTypes,
+	Hex,
+	Parser,
+	RgbString,
+	Vec4,
+} from "../types"
 
 import parse from "../parse"
 
@@ -6,6 +13,8 @@ import fromHex from "../fromHex"
 import fromVec4 from "../fromVec4"
 import isHex from "../isHex"
 import isVec4 from "../isVec4"
+import isRgbString from "../isRgbString"
+import fromRgbString from "../fromRgbString"
 
 /**
  * All parsers available
@@ -13,6 +22,7 @@ import isVec4 from "../isVec4"
 const parsers = [
 	{ test: isVec4, parse: fromVec4 } as Parser<Vec4>,
 	{ test: isHex, parse: fromHex } as Parser<Hex>,
+	{ test: isRgbString, parse: fromRgbString } as Parser<RgbString>,
 ] as const
 type ParserTypes = ExtractParserTypes<typeof parsers>
 
