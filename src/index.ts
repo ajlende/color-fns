@@ -87,9 +87,9 @@ export { default as toRgbString } from "./toRgbString"
 // Other color formats
 // -------------------------------------
 
-// Oklab https://bottosson.github.io/posts/oklab/
+// TODO: Oklab https://bottosson.github.io/posts/oklab/
 
-// IPT https://scholarworks.rit.edu/cgi/viewcontent.cgi?article=3862&context=theses
+// TODO: IPT https://scholarworks.rit.edu/cgi/viewcontent.cgi?article=3862&context=theses
 
 // @see https://vis4.net/chromajs
 
