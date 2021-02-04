@@ -13,6 +13,11 @@ export { default as fromVec4 } from "./fromVec4"
 export { default as isVec4 } from "./isVec4"
 export { default as toVec4 } from "./toVec4"
 
+// Rgb: An object representation of the color in sRGB space, not clamped
+export { default as fromRgb } from "./fromRgb"
+export { default as isRgb } from "./isRgb"
+export { default as toRgb } from "./toRgb"
+
 // -------------------------------------
 // Matlab Colorspaces (https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/28790/versions/5/previews/colorspace/colorspace.html#CUsage)
 // -------------------------------------

@@ -10,6 +10,10 @@ This change log follows the format documented in [Keep a CHANGELOG].
 
 ## [Unreleased]
 
+- `fromRgb`
+- `isRgb`
+- `toRgb`
+
 ## [0.1.0] - 2021-01-31
 
 ### Added
