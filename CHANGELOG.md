@@ -10,8 +10,11 @@ This change log follows the format documented in [Keep a CHANGELOG].
 
 ## [Unreleased]
 
+- `fromRgbString`
 - `fromRgb`
+- `isRgbString`
 - `isRgb`
+- `toRgbString`
 - `toRgb`
 
 ## [0.1.0] - 2021-01-31
