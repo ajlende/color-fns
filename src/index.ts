@@ -8,7 +8,7 @@ export * from "./types"
 // Internal color representation
 // -------------------------------------
 
-// Vec4 (internal representation, also useful for WebGL)
+// Vec4: Internal representation in sRGB space, also useful for WebGL, not clamped
 export { default as fromVec4 } from "./fromVec4"
 export { default as isVec4 } from "./isVec4"
 export { default as toVec4 } from "./toVec4"
@@ -18,11 +18,11 @@ export { default as fromRgb } from "./fromRgb"
 export { default as isRgb } from "./isRgb"
 export { default as toRgb } from "./toRgb"
 
+// TODO: lRGB: linear space, not clamped
+
 // -------------------------------------
 // Matlab Colorspaces (https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/28790/versions/5/previews/colorspace/colorspace.html#CUsage)
 // -------------------------------------
-
-// TODO: lRGB (linear space, not included in the above link)
 
 // TODO: sRGB
 
@@ -55,8 +55,6 @@ export { default as toRgb } from "./toRgb"
 // TODO: CIE L*ch (CIELCH)
 
 // TODO: CIE CAT02 LMS
-
-// TODO: Figure out how to handle notifying of clipped colors in color spaces larger than sRGB
 
 // -------------------------------------
 // CSS Color Formats (https://www.w3.org/TR/css-color-4)

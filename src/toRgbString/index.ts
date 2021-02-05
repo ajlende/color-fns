@@ -8,11 +8,11 @@ import { Color, RgbString } from "../types"
  * @return Color converted to RgbString
  */
 export default function toRgbString(color: Color): RgbString {
+	const v = color.filter((x, i) => i < 3).map((x) => `${x * 255}`)
 	if (color[3] === 1) {
-		const v = color.filter((x, i) => i < 3).map((x) => `${x * 100}%`)
-		return `rgb(${v.join(",")})`
+		return `rgb(${v.join(", ")})`
 	} else {
-		const v = color.map((x) => `${x * 100}%`)
-		return `rgba(${v.join(",")})`
+		v.push(`${color[3]}`)
+		return `rgba(${v.join(", ")})`
 	}
 }
