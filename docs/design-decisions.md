@@ -13,6 +13,22 @@ The intermediary color format is stored as a `Vec4` or rather an array of number
 
 [colr-convert]: https://github.com/stayradiated/colr/blob/master/index.js
 
+## Simplicity vs Accuracy
+
+### Color Conversion
+
+In order to provide the most _accurate_ color conversions, it's better to store values in a linear space. The sRGB spec doesn't actually have a constant gamma value. It's actually a piecewise function described in the [IEC 61966-2-1 spec \[PDF\]](https://web.archive.org/web/20210201152230/http://www.color.org/sRGB.pdf). Often, an approximation of gamma = 2.2 is used for convenience. I'd like to be able to have these very accurate spec-compliant color conversions; however, that would sacrifice performance on the conversion back to the most common output format, sRGB. In the future, I may add additional functions for these more exact calculations, but they won't make an appearance in the early stages of the project.
+
+### CSS Spec
+
+The CSS grammar for color representation is rather broad, allowing for a wide range of inputs and number formats. In the spirit of providing a simpler string option that will still handle some CSS strings, the from\*String, is\*String, and to\*String functions only convert from one fixed CSS representation of a color. For this simple representation, I went with the most common format described in developer.mozilla.org, w3schools.com, and codecademy.com. Even though not all spec-compliant _input_ strings will be parsed, the _output_ string will always be a valid CSS string.
+
+For RGB colors: `rgba(127, 127, 127, 0.5)` and `rgb(127, 127, 127)`. sRGB values are in the range \[0,255\] (floating-point is accepted) and the alpha is in the range \[0,1\]. The alpha is only included in the output if the value is less than one. The input parsing is still somewhat lenient—strings will still be parsed if the input includes an alpha value of one, and `rgb` and `rgba` are treated as identical. Invalid input strings for this simplified version include space-delimited notation and percentage values.
+
+For HSL colors: `hsla(180, 50%, 50%, 0.5)` and `hsl(180, 50%, 50%)`. Angles are unit-less which means degrees, hue and saturation are as percentages, and alpha is a number in the range \[0,1\]. The alpha is only included in the output if the value is less than one.
+
+If you truly want to parse _any_ valid CSS color string or customize the output, a set of spec-compliant functions from\*Css, is\*Css, and to\*Css will be provided in the future.
+
 ## CSS Color Strings
 
 Color strings in CSS can be quite complicated—even something as simple as a number has rules for `+` or `-` signs and exponent `e` or `E` in the spec. Matching the CSS spec exactly pretty much requires proper tokenization and parsing, so for the sake of this library, I'm keeping the parsing to something that can be handled with (what I consider to be) a readable regular expression. This means that some technically valid, yet uncommon use-cases may result in errors. Fortunately if a more specific parser is required for your use-case, you can write your own and successfully plug it in to handle those edge cases.
