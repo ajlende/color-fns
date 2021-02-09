@@ -29,3 +29,15 @@ test("parses with the first matching parser", (t) => {
 	] as const
 	t.is(parse(parsers, true), first)
 })
+
+test("throws RangeError when a suitable parser isn't found", (t) => {
+	const parsers = [
+		{
+			test: (c: unknown): c is boolean => false,
+			parse: () => [0, 0, 0, 0] as Color,
+		},
+	] as const
+	t.throws(() => parse(parsers, true), {
+		instanceOf: RangeError,
+	})
+})

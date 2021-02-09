@@ -17,3 +17,7 @@ test("returns false when the input has an extra value", (t) => {
 test("returns false when the input isn't a number", (t) => {
 	t.false(isRgb({ r: 0, g: 0.1, b: 0.3, a: "1" }))
 })
+
+test("returns false when the input null", (t) => {
+	t.false(isRgb(null))
+})

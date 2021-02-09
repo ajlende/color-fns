@@ -57,3 +57,9 @@ test("throws RangeError when the function is incorrect", (t) => {
 		instanceOf: RangeError,
 	})
 })
+
+test("throws RangeError when the input color is malformed", (t) => {
+	t.throws(() => fromRgbString("rgb(+-51, 102, 153)"), {
+		instanceOf: RangeError,
+	})
+})
