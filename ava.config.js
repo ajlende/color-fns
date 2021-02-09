@@ -2,5 +2,5 @@
 
 export default {
 	extensions: ["ts"],
-	require: ["esm", "ts-node/register/transpile-only"],
+	require: ["ts-node/register/transpile-only"],
 }
