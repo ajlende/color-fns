@@ -9,7 +9,7 @@ export type RgbString = string
 export interface Rgb {
 	r: number
 	g: number
-	l: number
+	b: number
 	a: number
 }
 
