@@ -24,27 +24,27 @@ export { default as toRgb } from "./toRgb"
 // Matlab Colorspaces (https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/28790/versions/5/previews/colorspace/colorspace.html#CUsage)
 // -------------------------------------
 
-// TODO: sRGB
+// TODO: sRGB: IEC 61966-2-1, clamped [0,1]
 
-// TODO: sRGB 255
+// TODO: sRGB 255: IEC 61966-2-1, clamped [0,255], rounded
 
-// TODO: Y'PbPr
+// TODO: Y'PbPr: Luma (ITU-R BT.601) + Chroma
 
-// TODO: Y'CbCr
+// TODO: Y'CbCr: Luma + Chroma (digitized version of Y'PbPr)
 
-// TODO: JPEG-Y'CbCr
+// TODO: JPEG-Y'CbCr: Luma + Chroma space used in JFIF JPEG
 
-// TODO: Y'UV
+// TODO: Y'UV: NTSC PAL Y'UV Luma + Chroma
 
-// TODO: Y'IQ
+// TODO: Y'IQ: NTSC Y'IQ Luma + Chroma
 
-// TODO: Y'DbDr
+// TODO: Y'DbDr: SECAM Luma + Chroma
 
-// TODO: HSV
+// TODO: HSV (or HSB): Hue Saturation Value/Brightness
 
-// TODO: HSL
+// TODO: HSL (or HLS): Hue Saturation Luminance
 
-// TODO: HSI
+// TODO: HSI: Hue Saturation Intensity
 
 // TODO: CIE XYZ
 
