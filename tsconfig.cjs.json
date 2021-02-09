@@ -4,5 +4,6 @@
 		"module": "CommonJS",
 		"target": "ES2018",
 		"outDir": "cjs"
-	}
+	},
+	"exclude": ["src/**/*.test.ts"]
 }

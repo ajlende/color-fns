@@ -3,5 +3,6 @@
 	"compilerOptions": {
 		"module": "ES2020",
 		"outDir": "esm"
-	}
+	},
+	"exclude": ["src/**/*.test.ts"]
 }
