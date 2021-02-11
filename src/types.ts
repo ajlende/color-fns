@@ -5,6 +5,7 @@
 export type Color = Vec4
 export type Vec4 = [number, number, number, number]
 export type Hex = string
+export type HslString = string
 export type RgbString = string
 export interface Rgb {
 	r: number

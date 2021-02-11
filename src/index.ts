@@ -77,9 +77,12 @@ export { default as fromRgbString } from "./fromRgbString"
 export { default as isRgbString } from "./isRgbString"
 export { default as toRgbString } from "./toRgbString"
 
-// TODO: Color keywords: named, transparent, currentcolor? (probably not accessible), system? (deprecated in CSS3)
+// HSL Colors: hsl() and hsla()
+export { default as fromHslString } from "./fromHslString"
+export { default as isHslString } from "./isHslString"
+export { default as toHslString } from "./toHslString"
 
-// TODO: HSL Colors: hsl() and hsla()
+// TODO: Color keywords: named, transparent, currentcolor? (probably not accessible), system? (deprecated in CSS3)
 
 // TODO: HWM Colors: hwb()
 
