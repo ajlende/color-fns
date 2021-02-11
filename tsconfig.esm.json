@@ -4,5 +4,5 @@
 		"module": "ES2020",
 		"outDir": "esm"
 	},
-	"exclude": ["src/**/*.test.ts"]
+	"exclude": ["src/**/*.test.ts", "src/_test-utils.ts"]
 }

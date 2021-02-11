@@ -5,5 +5,5 @@
 		"target": "ES2018",
 		"outDir": "cjs"
 	},
-	"exclude": ["src/**/*.test.ts"]
+	"exclude": ["src/**/*.test.ts", "src/_test-utils.ts"]
 }
