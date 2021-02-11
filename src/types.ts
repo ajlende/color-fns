@@ -12,6 +12,12 @@ export interface Rgb {
 	b: number
 	a: number
 }
+export interface Hsl {
+	h: number
+	s: number
+	l: number
+	a: number
+}
 
 // -------------------------------------
 // Function-related types

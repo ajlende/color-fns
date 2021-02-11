@@ -18,6 +18,11 @@ export { default as fromRgb } from "./fromRgb"
 export { default as isRgb } from "./isRgb"
 export { default as toRgb } from "./toRgb"
 
+// Hsl: An object representation of the color in sRGB HSL space, not clamped
+export { default as fromHsl } from "./fromHsl"
+export { default as isHsl } from "./isHsl"
+export { default as toHsl } from "./toHsl"
+
 // TODO: lRGB: linear space, not clamped
 
 // -------------------------------------
