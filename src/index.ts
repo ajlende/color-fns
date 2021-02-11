@@ -98,6 +98,8 @@ export { default as toHslString } from "./toHslString"
 // Other color formats
 // -------------------------------------
 
+// TODO: Spectrum http://www.brucelindbloom.com/index.html?Math.html
+
 // TODO: Oklab https://bottosson.github.io/posts/oklab/
 
 // TODO: IPT https://scholarworks.rit.edu/cgi/viewcontent.cgi?article=3862&context=theses
