@@ -10,7 +10,7 @@ It's like [date-fns](https://date-fns.org) for colors.
 - **TypeScript**: Prevent runtime type-related errors.
 
 ```js
-import { convert, fromHex, toVec4 } from "color-fns"
+import { convert, fromAny, toHex } from "color-fns"
 
 convert(fromAny, toHex, [0.2, 0.4, 0.6, 1])
 //=> "#336699"
