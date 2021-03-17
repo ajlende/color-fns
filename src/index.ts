@@ -193,3 +193,7 @@ export { default as convert } from "./convert"
 // TODO: Distance(color1, color2, mode='lab')
 
 // TODO: DeltaE(reference, sample, L=1, C=1)
+
+// TODO: MostReadable(reference, colors[])
+
+// TODO: IsReadable(reference, color, wcag_opts)
