@@ -10,10 +10,17 @@ This change log follows the format documented in [Keep a CHANGELOG].
 
 ## [Unreleased]
 
+- `fromHslString`
+- `fromHsl`
 - `fromRgbString`
 - `fromRgb`
+- `fromString`
+- `isHslString`
+- `isHsl`
 - `isRgbString`
 - `isRgb`
+- `toHslString`
+- `toHsl`
 - `toRgbString`
 - `toRgb`
 
