@@ -117,30 +117,30 @@ export interface Hsv {
 export type RgbString = string
 
 /**
- * Object representation of sRGB red, green, blue, and alpha with values in the
- * range [0,1].
+ * Object representation of sRGB color. Red, green, and blue values in the range
+ * [0,255] and alpha values in the range [0,1].
  *
  * @example
  * ```
  * const rgb: Rgb = {
- *   r: 0.2,
- *   g: 0.4,
- *   b: 0.6,
+ *   r: 51,
+ *   g: 102,
+ *   b: 153,
  *   a: 0.8,
  * }
  * ```
  */
 export interface Rgb {
 	/**
-	 * Red value in the range [0,1].
+	 * Red value in the range [0,255].
 	 */
 	r: number
 	/**
-	 * Green value in the range [0,1].
+	 * Green value in the range [0,255].
 	 */
 	g: number
 	/**
-	 * Blue value in the range [0,1].
+	 * Blue value in the range [0,255].
 	 */
 	b: number
 	/**

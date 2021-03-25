@@ -9,9 +9,9 @@ import { Color, Rgb } from "../types"
  */
 export default function toRgb(color: Color): Rgb {
 	return {
-		r: color[0],
-		g: color[1],
-		b: color[2],
+		r: color[0] * 255,
+		g: color[1] * 255,
+		b: color[2] * 255,
 		a: color[3],
 	}
 }
