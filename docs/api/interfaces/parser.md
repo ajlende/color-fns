@@ -2,6 +2,9 @@
 
 # Interface: Parser<T\>
 
+TODO: Think of a better name. This contains a function to test if a value is
+of a given type and then convert that type to the intermediate format.
+
 ## Type parameters
 
 Name |
@@ -25,7 +28,9 @@ Name |
 
 • **parse**: (`color`: T) => [*Vec4*](../README.md#vec4)
 
-Defined in: [types.ts:28](https://github.com/ajlende/color-fns/blob/2f959a7/src/types.ts#L28)
+Convert from the type T to the intermediate format.
+
+Defined in: [types.ts:168](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L168)
 
 ___
 
@@ -33,4 +38,6 @@ ___
 
 • **test**: (`color`: *unknown*) => color is T
 
-Defined in: [types.ts:29](https://github.com/ajlende/color-fns/blob/2f959a7/src/types.ts#L29)
+Check to see if the type of the input is T so it can be converted later.
+
+Defined in: [types.ts:164](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L164)
