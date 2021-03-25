@@ -74,6 +74,38 @@ export interface Hsl {
 export type HslString = string
 
 /**
+ * Object representation of hue, saturation, value, and alpha.
+ *
+ * @example
+ * ```
+ * const hsv: Hsv = {
+ *   h: 210,
+ *   s: 0.5,
+ *   v: 0.6,
+ *   a: 0.8,
+ * }
+ * ```
+ */
+export interface Hsv {
+	/**
+	 * Hue in degrees.
+	 */
+	h: number
+	/**
+	 * Saturation in the range [0,1].
+	 */
+	s: number
+	/**
+	 * Value in the range [0,1].
+	 */
+	v: number
+	/**
+	 * Alpha in the range [0,1].
+	 */
+	a: number
+}
+
+/**
  * RGB string as used in CSS.
  *
  * @example

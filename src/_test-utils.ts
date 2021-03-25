@@ -1,7 +1,7 @@
 // eslint-disable-next-line ava/use-test
 import { ExecutionContext } from "ava"
 
-import { Color, Hsl } from "./types"
+import { Color, Hsl, Hsv } from "./types"
 
 /**
  * Tolerance for floating point assertions. Most values are within the range
@@ -49,6 +49,30 @@ export function assertHsl(
 		hue: expected.h - actual.h,
 		saturation: expected.s - actual.s,
 		lightness: expected.l - actual.l,
+		alpha: expected.a - actual.a,
+	}
+	const closeEnough = Object.values(diff).every(
+		(d) => Math.abs(d) < TOLERANCE,
+	)
+	t.true(closeEnough, `Values are off by: ${JSON.stringify(diff, null, 2)}.`)
+}
+
+/**
+ * Assert that `actual` is the same Hsv object as `expected`
+ *
+ * @param t AVA execution context
+ * @param actual Actual computed value
+ * @param expected Expected result
+ */
+export function assertHsv(
+	t: ExecutionContext,
+	actual: Hsv,
+	expected: Hsv,
+): void {
+	const diff = {
+		hue: expected.h - actual.h,
+		saturation: expected.s - actual.s,
+		value: expected.v - actual.v,
 		alpha: expected.a - actual.a,
 	}
 	const closeEnough = Object.values(diff).every(
