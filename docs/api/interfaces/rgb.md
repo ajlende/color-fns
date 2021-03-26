@@ -2,15 +2,15 @@
 
 # Interface: Rgb
 
-Object representation of sRGB red, green, blue, and alpha with values in the
-range [0,1].
+Object representation of sRGB color. Red, green, and blue values in the range
+[0,255] and alpha values in the range [0,1].
 
 **`example`** 
 ```
 const rgb: Rgb = {
-  r: 0.2,
-  g: 0.4,
-  b: 0.6,
+  r: 51,
+  g: 102,
+  b: 153,
   a: 0.8,
 }
 ```
@@ -36,7 +36,7 @@ const rgb: Rgb = {
 
 Alpha value in the range [0,1].
 
-Defined in: [types.ts:149](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L149)
+Defined in: [types.ts:149](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L149)
 
 ___
 
@@ -44,9 +44,9 @@ ___
 
 • **b**: *number*
 
-Blue value in the range [0,1].
+Blue value in the range [0,255].
 
-Defined in: [types.ts:145](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L145)
+Defined in: [types.ts:145](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L145)
 
 ___
 
@@ -54,9 +54,9 @@ ___
 
 • **g**: *number*
 
-Green value in the range [0,1].
+Green value in the range [0,255].
 
-Defined in: [types.ts:141](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L141)
+Defined in: [types.ts:141](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L141)
 
 ___
 
@@ -64,6 +64,6 @@ ___
 
 • **r**: *number*
 
-Red value in the range [0,1].
+Red value in the range [0,255].
 
-Defined in: [types.ts:137](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L137)
+Defined in: [types.ts:137](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L137)

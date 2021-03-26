@@ -53,7 +53,7 @@ color-fns - v0.1.0
 
 Internal color representation. Stored as a [Vec4](README.md#vec4).
 
-Defined in: [types.ts:8](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L8)
+Defined in: [types.ts:8](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L8)
 
 ___
 
@@ -70,7 +70,7 @@ Name |
 ------ |
 `T` |
 
-Defined in: [types.ts:186](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L186)
+Defined in: [types.ts:186](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L186)
 
 ___
 
@@ -88,7 +88,7 @@ const hex4: Hex = "#369c"     // 4-digit (with alpha)
 const hex8: Hex = "#336699cc" // 8-digit (with alpha)
 ```
 
-Defined in: [types.ts:31](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L31)
+Defined in: [types.ts:31](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L31)
 
 ___
 
@@ -104,7 +104,7 @@ const hsl: HslString = "hsl(210, 50%, 40%)"
 const hsla: HslString = "hsla(210, 50%, 40%, 0.8)"
 ```
 
-Defined in: [types.ts:74](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L74)
+Defined in: [types.ts:74](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L74)
 
 ___
 
@@ -120,7 +120,7 @@ Name |
 ------ |
 `T` |
 
-Defined in: [types.ts:178](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L178)
+Defined in: [types.ts:178](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L178)
 
 ___
 
@@ -136,7 +136,7 @@ const hsl: HslString = "hsl(210, 50%, 40%)"
 const hsla: HslString = "hsla(210, 50%, 40%, 0.8)"
 ```
 
-Defined in: [types.ts:117](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L117)
+Defined in: [types.ts:117](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L117)
 
 ___
 
@@ -151,7 +151,7 @@ Array of sRGB [red, green, blue, alpha] values in the range [0,1].
 const color: Vec4 = [0.2, 0.4, 0.6, 0.8]
 ```
 
-Defined in: [types.ts:18](https://github.com/ajlende/color-fns/blob/59a932e/src/types.ts#L18)
+Defined in: [types.ts:18](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L18)
 
 ## Functions
 
@@ -180,7 +180,7 @@ Name | Type | Description |
 
 Converted color
 
-Defined in: [convert/index.ts:12](https://github.com/ajlende/color-fns/blob/59a932e/src/convert/index.ts#L12)
+Defined in: [convert/index.ts:12](https://github.com/ajlende/color-fns/blob/680760f/src/convert/index.ts#L12)
 
 ___
 
@@ -200,7 +200,7 @@ Name | Type | Description |
 
 Color in the intermediary format
 
-Defined in: [fromAny/index.ts:48](https://github.com/ajlende/color-fns/blob/59a932e/src/fromAny/index.ts#L48)
+Defined in: [fromAny/index.ts:48](https://github.com/ajlende/color-fns/blob/680760f/src/fromAny/index.ts#L48)
 
 ___
 
@@ -225,7 +225,7 @@ Name | Type |
 
 Color in the intermediary format
 
-Defined in: [fromHex/index.ts:15](https://github.com/ajlende/color-fns/blob/59a932e/src/fromHex/index.ts#L15)
+Defined in: [fromHex/index.ts:15](https://github.com/ajlende/color-fns/blob/680760f/src/fromHex/index.ts#L15)
 
 ___
 
@@ -245,7 +245,7 @@ Convert a HSL color to the intermediate format
 
 Color in the intermediary format
 
-Defined in: [fromHsl/index.ts:31](https://github.com/ajlende/color-fns/blob/59a932e/src/fromHsl/index.ts#L31)
+Defined in: [fromHsl/index.ts:31](https://github.com/ajlende/color-fns/blob/680760f/src/fromHsl/index.ts#L31)
 
 ___
 
@@ -270,7 +270,7 @@ Name | Type | Description |
 
 Color in the intermediary format
 
-Defined in: [fromHslString/index.ts:18](https://github.com/ajlende/color-fns/blob/59a932e/src/fromHslString/index.ts#L18)
+Defined in: [fromHslString/index.ts:18](https://github.com/ajlende/color-fns/blob/680760f/src/fromHslString/index.ts#L18)
 
 ___
 
@@ -290,7 +290,7 @@ Name | Type | Description |
 
 Color in the intermediary format
 
-Defined in: [fromRgb/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/fromRgb/index.ts#L10)
+Defined in: [fromRgb/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/fromRgb/index.ts#L10)
 
 ___
 
@@ -313,7 +313,7 @@ Name | Type | Description |
 
 Color in the intermediary format
 
-Defined in: [fromRgbString/index.ts:15](https://github.com/ajlende/color-fns/blob/59a932e/src/fromRgbString/index.ts#L15)
+Defined in: [fromRgbString/index.ts:15](https://github.com/ajlende/color-fns/blob/680760f/src/fromRgbString/index.ts#L15)
 
 ___
 
@@ -333,7 +333,7 @@ Name | Type | Description |
 
 Color in the intermediary format
 
-Defined in: [fromVec4/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/fromVec4/index.ts#L10)
+Defined in: [fromVec4/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/fromVec4/index.ts#L10)
 
 ___
 
@@ -353,7 +353,7 @@ Name | Type | Description |
 
 True if the color is a Hex color
 
-Defined in: [isHex/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/isHex/index.ts#L10)
+Defined in: [isHex/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/isHex/index.ts#L10)
 
 ___
 
@@ -373,7 +373,7 @@ Name | Type | Description |
 
 True if the color is a Hsl color
 
-Defined in: [isHsl/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/isHsl/index.ts#L10)
+Defined in: [isHsl/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/isHsl/index.ts#L10)
 
 ___
 
@@ -393,7 +393,7 @@ Name | Type | Description |
 
 True if the color is an HSL string
 
-Defined in: [isHslString/index.ts:17](https://github.com/ajlende/color-fns/blob/59a932e/src/isHslString/index.ts#L17)
+Defined in: [isHslString/index.ts:17](https://github.com/ajlende/color-fns/blob/680760f/src/isHslString/index.ts#L17)
 
 ___
 
@@ -413,7 +413,7 @@ Name | Type | Description |
 
 True if the color is an Rgb color
 
-Defined in: [isRgb/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/isRgb/index.ts#L10)
+Defined in: [isRgb/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/isRgb/index.ts#L10)
 
 ___
 
@@ -433,7 +433,7 @@ Name | Type | Description |
 
 True if the color is an RGB string
 
-Defined in: [isRgbString/index.ts:16](https://github.com/ajlende/color-fns/blob/59a932e/src/isRgbString/index.ts#L16)
+Defined in: [isRgbString/index.ts:16](https://github.com/ajlende/color-fns/blob/680760f/src/isRgbString/index.ts#L16)
 
 ___
 
@@ -453,7 +453,7 @@ Name | Type | Description |
 
 True if the color is a Vec4 color
 
-Defined in: [isVec4/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/isVec4/index.ts#L10)
+Defined in: [isVec4/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/isVec4/index.ts#L10)
 
 ___
 
@@ -481,7 +481,7 @@ Name | Type | Description |
 
 Color in the intermediary format
 
-Defined in: [parse/index.ts:15](https://github.com/ajlende/color-fns/blob/59a932e/src/parse/index.ts#L15)
+Defined in: [parse/index.ts:15](https://github.com/ajlende/color-fns/blob/680760f/src/parse/index.ts#L15)
 
 ___
 
@@ -501,7 +501,7 @@ Name | Type | Description |
 
 CSS hex string.
 
-Defined in: [toHex/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/toHex/index.ts#L10)
+Defined in: [toHex/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/toHex/index.ts#L10)
 
 ___
 
@@ -521,7 +521,7 @@ Convert the intermediate format to a HSL color
 
 HSLA object. Hue in degrees, saturation, lightness, alpha as percentage [0,1]
 
-Defined in: [toHsl/index.ts:12](https://github.com/ajlende/color-fns/blob/59a932e/src/toHsl/index.ts#L12)
+Defined in: [toHsl/index.ts:12](https://github.com/ajlende/color-fns/blob/680760f/src/toHsl/index.ts#L12)
 
 ___
 
@@ -541,7 +541,7 @@ Name | Type | Description |
 
 Color converted to HslString
 
-Defined in: [toHslString/index.ts:11](https://github.com/ajlende/color-fns/blob/59a932e/src/toHslString/index.ts#L11)
+Defined in: [toHslString/index.ts:11](https://github.com/ajlende/color-fns/blob/680760f/src/toHslString/index.ts#L11)
 
 ___
 
@@ -561,7 +561,7 @@ Name | Type | Description |
 
 Color converted to Rgb
 
-Defined in: [toRgb/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/toRgb/index.ts#L10)
+Defined in: [toRgb/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/toRgb/index.ts#L10)
 
 ___
 
@@ -581,7 +581,7 @@ Name | Type | Description |
 
 Color converted to RgbString
 
-Defined in: [toRgbString/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/toRgbString/index.ts#L10)
+Defined in: [toRgbString/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/toRgbString/index.ts#L10)
 
 ___
 
@@ -601,4 +601,4 @@ Name | Type | Description |
 
 Color converted to Vec4
 
-Defined in: [toVec4/index.ts:10](https://github.com/ajlende/color-fns/blob/59a932e/src/toVec4/index.ts#L10)
+Defined in: [toVec4/index.ts:10](https://github.com/ajlende/color-fns/blob/680760f/src/toVec4/index.ts#L10)
