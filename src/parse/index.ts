@@ -24,7 +24,7 @@ export default function parse<
 	if (!parser)
 		throw new RangeError("No parser for the given input was found.")
 
-	return parser.parse(color)
+	return parser.convert(color)
 }
 
 // TODO: Maybe add an additional parse function that is less strict on the type-

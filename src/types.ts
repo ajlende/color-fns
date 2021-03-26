@@ -165,7 +165,7 @@ export interface Parser<T> {
 	/**
 	 * Convert from the type T to the intermediate format.
 	 */
-	parse: (color: T) => Color
+	convert: (color: T) => Color
 }
 
 // -------------------------------------

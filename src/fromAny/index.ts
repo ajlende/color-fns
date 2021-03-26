@@ -29,12 +29,12 @@ import isVec4 from "../isVec4"
  * All parsers available
  */
 const parsers = [
-	{ test: isVec4, parse: fromVec4 } as Parser<Vec4>,
-	{ test: isRgb, parse: fromRgb } as Parser<Rgb>,
-	{ test: isHsl, parse: fromHsl } as Parser<Hsl>,
-	{ test: isHex, parse: fromHex } as Parser<Hex>,
-	{ test: isRgbString, parse: fromRgbString } as Parser<RgbString>,
-	{ test: isHslString, parse: fromHslString } as Parser<HslString>,
+	{ test: isVec4, convert: fromVec4 } as Parser<Vec4>,
+	{ test: isRgb, convert: fromRgb } as Parser<Rgb>,
+	{ test: isHsl, convert: fromHsl } as Parser<Hsl>,
+	{ test: isHex, convert: fromHex } as Parser<Hex>,
+	{ test: isRgbString, convert: fromRgbString } as Parser<RgbString>,
+	{ test: isHslString, convert: fromHslString } as Parser<HslString>,
 ] as const
 type ParserTypes = ExtractParserTypes<typeof parsers>
 

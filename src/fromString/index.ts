@@ -20,9 +20,9 @@ import isRgbString from "../isRgbString"
  * All parsers available
  */
 const parsers = [
-	{ test: isHex, parse: fromHex } as Parser<Hex>,
-	{ test: isRgbString, parse: fromRgbString } as Parser<RgbString>,
-	{ test: isHslString, parse: fromHslString } as Parser<HslString>,
+	{ test: isHex, convert: fromHex } as Parser<Hex>,
+	{ test: isRgbString, convert: fromRgbString } as Parser<RgbString>,
+	{ test: isHslString, convert: fromHslString } as Parser<HslString>,
 ] as const
 type ParserTypes = ExtractParserTypes<typeof parsers>
 

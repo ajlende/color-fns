@@ -7,7 +7,7 @@ test("parses with a test identity parser", (t) => {
 	const parsers = [
 		{
 			test: (c: unknown): c is Color => !!c,
-			parse: (c: Color) => c,
+			convert: (c: Color) => c,
 		},
 	] as const
 	const color: Color = [1, 1, 1, 1]
@@ -20,11 +20,11 @@ test("parses with the first matching parser", (t) => {
 	const parsers = [
 		{
 			test: (c: unknown): c is boolean => true,
-			parse: () => first,
+			convert: () => first,
 		},
 		{
 			test: (c: unknown): c is string => true,
-			parse: () => second,
+			convert: () => second,
 		},
 	] as const
 	t.is(parse(parsers, true), first)
@@ -34,7 +34,7 @@ test("throws RangeError when a suitable parser isn't found", (t) => {
 	const parsers = [
 		{
 			test: (c: unknown): c is boolean => false,
-			parse: () => [0, 0, 0, 0] as Color,
+			convert: () => [0, 0, 0, 0] as Color,
 		},
 	] as const
 	t.throws(() => parse(parsers, true), {
