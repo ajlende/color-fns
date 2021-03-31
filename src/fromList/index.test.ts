@@ -1,17 +1,17 @@
 import test from "ava"
 
-import parse from "."
+import fromList from "."
 import { Color } from "../types"
 
 test("parses with a test identity parser", (t) => {
 	const parsers = [
 		{
-			test: (c: unknown): c is Color => !!c,
-			convert: (c: Color) => c,
+			isType: (c: unknown): c is Color => !!c,
+			fromType: (c: Color) => c,
 		},
 	] as const
 	const color: Color = [1, 1, 1, 1]
-	t.is(parse(parsers, color), color)
+	t.is(fromList(parsers, color), color)
 })
 
 test("parses with the first matching parser", (t) => {
@@ -19,25 +19,25 @@ test("parses with the first matching parser", (t) => {
 	const second: Color = [1, 1, 1, 1]
 	const parsers = [
 		{
-			test: (c: unknown): c is boolean => true,
-			convert: () => first,
+			isType: (c: unknown): c is boolean => true,
+			fromType: () => first,
 		},
 		{
-			test: (c: unknown): c is string => true,
-			convert: () => second,
+			isType: (c: unknown): c is string => true,
+			fromType: () => second,
 		},
 	] as const
-	t.is(parse(parsers, true), first)
+	t.is(fromList(parsers, true), first)
 })
 
 test("throws RangeError when a suitable parser isn't found", (t) => {
 	const parsers = [
 		{
-			test: (c: unknown): c is boolean => false,
-			convert: () => [0, 0, 0, 0] as Color,
+			isType: (c: unknown): c is boolean => false,
+			fromType: () => [0, 0, 0, 0] as Color,
 		},
 	] as const
-	t.throws(() => parse(parsers, true), {
+	t.throws(() => fromList(parsers, true), {
 		instanceOf: RangeError,
 	})
 })

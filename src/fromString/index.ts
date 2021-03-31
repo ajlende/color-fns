@@ -7,7 +7,7 @@ import {
 	RgbString,
 } from "../types"
 
-import parse from "../parse"
+import fromList from "../fromList"
 
 import fromHex from "../fromHex"
 import fromHslString from "../fromHslString"
@@ -20,9 +20,9 @@ import isRgbString from "../isRgbString"
  * All parsers available
  */
 const parsers = [
-	{ test: isHex, convert: fromHex } as Parser<Hex>,
-	{ test: isRgbString, convert: fromRgbString } as Parser<RgbString>,
-	{ test: isHslString, convert: fromHslString } as Parser<HslString>,
+	{ isType: isHex, fromType: fromHex } as Parser<Hex>,
+	{ isType: isRgbString, fromType: fromRgbString } as Parser<RgbString>,
+	{ isType: isHslString, fromType: fromHslString } as Parser<HslString>,
 ] as const
 type ParserTypes = ExtractParserTypes<typeof parsers>
 
@@ -34,5 +34,5 @@ type ParserTypes = ExtractParserTypes<typeof parsers>
  * @return Color in the intermediary format
  */
 export default function fromString(color: ParserTypes[number]): Color {
-	return parse(parsers, color)
+	return fromList(parsers, color)
 }

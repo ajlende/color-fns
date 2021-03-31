@@ -161,11 +161,11 @@ export interface Parser<T> {
 	/**
 	 * Check to see if the type of the input is T so it can be converted later.
 	 */
-	test: (color: unknown) => color is T
+	isType: (color: unknown) => color is T
 	/**
 	 * Convert from the type T to the intermediate format.
 	 */
-	convert: (color: T) => Color
+	fromType: (color: T) => Color
 }
 
 // -------------------------------------

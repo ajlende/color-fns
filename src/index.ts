@@ -115,7 +115,7 @@ export { default as toHslString } from "./toHslString"
 // -------------------------------------
 
 // Parse(parsers, color)
-export { default as parse } from "./parse"
+export { default as fromList } from "./fromList"
 
 // FromAny(color)
 export { default as fromAny } from "./fromAny"

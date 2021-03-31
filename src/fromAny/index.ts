@@ -10,7 +10,7 @@ import {
 	Vec4,
 } from "../types"
 
-import parse from "../parse"
+import fromList from "../fromList"
 
 import fromHex from "../fromHex"
 import fromHsl from "../fromHsl"
@@ -29,12 +29,12 @@ import isVec4 from "../isVec4"
  * All parsers available
  */
 const parsers = [
-	{ test: isVec4, convert: fromVec4 } as Parser<Vec4>,
-	{ test: isRgb, convert: fromRgb } as Parser<Rgb>,
-	{ test: isHsl, convert: fromHsl } as Parser<Hsl>,
-	{ test: isHex, convert: fromHex } as Parser<Hex>,
-	{ test: isRgbString, convert: fromRgbString } as Parser<RgbString>,
-	{ test: isHslString, convert: fromHslString } as Parser<HslString>,
+	{ isType: isVec4, fromType: fromVec4 } as Parser<Vec4>,
+	{ isType: isRgb, fromType: fromRgb } as Parser<Rgb>,
+	{ isType: isHsl, fromType: fromHsl } as Parser<Hsl>,
+	{ isType: isHex, fromType: fromHex } as Parser<Hex>,
+	{ isType: isRgbString, fromType: fromRgbString } as Parser<RgbString>,
+	{ isType: isHslString, fromType: fromHslString } as Parser<HslString>,
 ] as const
 type ParserTypes = ExtractParserTypes<typeof parsers>
 
@@ -46,5 +46,5 @@ type ParserTypes = ExtractParserTypes<typeof parsers>
  * @return Color in the intermediary format
  */
 export default function fromAny(color: ParserTypes[number]): Color {
-	return parse(parsers, color)
+	return fromList(parsers, color)
 }
