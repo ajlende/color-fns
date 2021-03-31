@@ -36,7 +36,7 @@ const rgb: Rgb = {
 
 Alpha value in the range [0,1].
 
-Defined in: [types.ts:149](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L149)
+Defined in: [types.ts:149](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L149)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 Blue value in the range [0,255].
 
-Defined in: [types.ts:145](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L145)
+Defined in: [types.ts:145](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L145)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 Green value in the range [0,255].
 
-Defined in: [types.ts:141](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L141)
+Defined in: [types.ts:141](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L141)
 
 ___
 
@@ -66,4 +66,4 @@ ___
 
 Red value in the range [0,255].
 
-Defined in: [types.ts:137](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L137)
+Defined in: [types.ts:137](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L137)

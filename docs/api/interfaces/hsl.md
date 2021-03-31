@@ -35,7 +35,7 @@ const hsl: Hsl = {
 
 Alpha in the range [0,1].
 
-Defined in: [types.ts:62](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L62)
+Defined in: [types.ts:62](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L62)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 Hue in degrees.
 
-Defined in: [types.ts:50](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L50)
+Defined in: [types.ts:50](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L50)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 Lightness in the range [0,1].
 
-Defined in: [types.ts:58](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L58)
+Defined in: [types.ts:58](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L58)
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 Saturation in the range [0,1].
 
-Defined in: [types.ts:54](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L54)
+Defined in: [types.ts:54](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L54)

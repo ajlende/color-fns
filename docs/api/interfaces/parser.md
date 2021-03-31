@@ -19,25 +19,25 @@ Name |
 
 ### Properties
 
-- [convert](parser.md#convert)
-- [test](parser.md#test)
+- [fromType](parser.md#fromtype)
+- [isType](parser.md#istype)
 
 ## Properties
 
-### convert
+### fromType
 
-• **convert**: (`color`: T) => [*Vec4*](../README.md#vec4)
+• **fromType**: (`color`: T) => [*Vec4*](../README.md#vec4)
 
 Convert from the type T to the intermediate format.
 
-Defined in: [types.ts:168](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L168)
+Defined in: [types.ts:168](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L168)
 
 ___
 
-### test
+### isType
 
-• **test**: (`color`: *unknown*) => color is T
+• **isType**: (`color`: *unknown*) => color is T
 
 Check to see if the type of the input is T so it can be converted later.
 
-Defined in: [types.ts:164](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L164)
+Defined in: [types.ts:164](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L164)

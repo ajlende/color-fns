@@ -35,7 +35,7 @@ const hsv: Hsv = {
 
 Alpha in the range [0,1].
 
-Defined in: [types.ts:105](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L105)
+Defined in: [types.ts:105](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L105)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 Hue in degrees.
 
-Defined in: [types.ts:93](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L93)
+Defined in: [types.ts:93](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L93)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 Saturation in the range [0,1].
 
-Defined in: [types.ts:97](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L97)
+Defined in: [types.ts:97](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L97)
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 Value in the range [0,1].
 
-Defined in: [types.ts:101](https://github.com/ajlende/color-fns/blob/680760f/src/types.ts#L101)
+Defined in: [types.ts:101](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L101)
