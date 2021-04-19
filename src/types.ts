@@ -157,7 +157,7 @@ export interface Rgb {
  * TODO: Think of a better name. This contains a function to test if a value is
  * of a given type and then convert that type to the intermediate format.
  */
-export interface Parser<T> {
+export interface ColorType<T> {
 	/**
 	 * Check to see if the type of the input is T so it can be converted later.
 	 */
@@ -183,6 +183,6 @@ export type NonemptyReadonlyArray<T> = ReadonlyArray<T> & {
  * Utility type to help with type checking the {@link fromAny} and related
  * functions for converting from multiple types.
  */
-export type ExtractParserTypes<T> = {
-	[K in keyof T]: T[K] extends Parser<infer R> ? R : unknown
+export type ExtractColorTypes<T> = {
+	[K in keyof T]: T[K] extends ColorType<infer R> ? R : unknown
 }

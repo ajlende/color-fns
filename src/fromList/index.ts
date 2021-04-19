@@ -1,7 +1,7 @@
 import {
 	Color,
-	Parser,
-	ExtractParserTypes,
+	ColorType,
+	ExtractColorTypes,
 	NonemptyReadonlyArray,
 } from "../types"
 
@@ -16,15 +16,15 @@ export default function fromList<
 	// Disable reason: Custom parsers that we know the type of cannot be
 	// assigned to an `unknown` type argument.
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	R extends NonemptyReadonlyArray<Parser<any>>,
-	T extends ExtractParserTypes<R>
->(parsers: R, color: T[number]): Color {
-	const parser = parsers.find(({ isType }) => isType(color))
+	R extends NonemptyReadonlyArray<ColorType<any>>,
+	T extends ExtractColorTypes<R>
+>(colorTypes: R, color: T[number]): Color {
+	const colorType = colorTypes.find(({ isType }) => isType(color))
 
-	if (!parser)
+	if (!colorType)
 		throw new RangeError("No parser for the given input was found.")
 
-	return parser.fromType(color)
+	return colorType.fromType(color)
 }
 
 // TODO: Maybe add an additional parse function that is less strict on the type-

@@ -1,9 +1,9 @@
 import {
 	Color,
-	ExtractParserTypes,
+	ExtractColorTypes,
 	Hex,
 	HslString,
-	Parser,
+	ColorType,
 	RgbString,
 } from "../types"
 
@@ -20,11 +20,11 @@ import isRgbString from "../isRgbString"
  * All parsers available
  */
 const parsers = [
-	{ isType: isHex, fromType: fromHex } as Parser<Hex>,
-	{ isType: isRgbString, fromType: fromRgbString } as Parser<RgbString>,
-	{ isType: isHslString, fromType: fromHslString } as Parser<HslString>,
+	{ isType: isHex, fromType: fromHex } as ColorType<Hex>,
+	{ isType: isRgbString, fromType: fromRgbString } as ColorType<RgbString>,
+	{ isType: isHslString, fromType: fromHslString } as ColorType<HslString>,
 ] as const
-type ParserTypes = ExtractParserTypes<typeof parsers>
+type ParserTypes = ExtractColorTypes<typeof parsers>
 
 /**
  * Convert a color from any available parser.

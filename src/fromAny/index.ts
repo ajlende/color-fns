@@ -1,10 +1,10 @@
 import {
 	Color,
-	ExtractParserTypes,
+	ExtractColorTypes,
 	Hex,
 	Hsl,
 	HslString,
-	Parser,
+	ColorType,
 	Rgb,
 	RgbString,
 	Vec4,
@@ -28,15 +28,15 @@ import isVec4 from "../isVec4"
 /**
  * All parsers available
  */
-const parsers = [
-	{ isType: isVec4, fromType: fromVec4 } as Parser<Vec4>,
-	{ isType: isRgb, fromType: fromRgb } as Parser<Rgb>,
-	{ isType: isHsl, fromType: fromHsl } as Parser<Hsl>,
-	{ isType: isHex, fromType: fromHex } as Parser<Hex>,
-	{ isType: isRgbString, fromType: fromRgbString } as Parser<RgbString>,
-	{ isType: isHslString, fromType: fromHslString } as Parser<HslString>,
+const colorTypes = [
+	{ isType: isVec4, fromType: fromVec4 } as ColorType<Vec4>,
+	{ isType: isRgb, fromType: fromRgb } as ColorType<Rgb>,
+	{ isType: isHsl, fromType: fromHsl } as ColorType<Hsl>,
+	{ isType: isHex, fromType: fromHex } as ColorType<Hex>,
+	{ isType: isRgbString, fromType: fromRgbString } as ColorType<RgbString>,
+	{ isType: isHslString, fromType: fromHslString } as ColorType<HslString>,
 ] as const
-type ParserTypes = ExtractParserTypes<typeof parsers>
+type ParserTypes = ExtractColorTypes<typeof colorTypes>
 
 /**
  * Convert a color from any available parser.
@@ -46,5 +46,5 @@ type ParserTypes = ExtractParserTypes<typeof parsers>
  * @return Color in the intermediary format
  */
 export default function fromAny(color: ParserTypes[number]): Color {
-	return fromList(parsers, color)
+	return fromList(colorTypes, color)
 }
