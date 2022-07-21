@@ -3,5 +3,6 @@
 build
 cjs
 coverage
+docs/api
 esm
 types
