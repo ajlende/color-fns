@@ -17,16 +17,13 @@
 		"build:docs": "typedoc src/index.ts",
 		"clean": "rimraf esm cjs types tsconfig.tsbuildinfo tsconfig.esm.tsbuildinfo tsconfig.cjs.tsbuildinfo tsconfig.types.tsbuildinfo",
 		"coverage": "codecov",
+		"husky:pre-commit": "lint-staged",
 		"lint": "(eslint '**/*.{js,ts,tsx}' || true) && tsc --noEmit",
 		"lint:fix": "(eslint --cache --fix '**/*.{js,ts,tsx}' || true) && prettier --write .",
+		"prepare": "husky install",
 		"prepublish": "yarn build",
 		"test": "nyc ava",
 		"test:watch": "ava --watch"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
 	},
 	"lint-staged": {
 		"**/*": [
