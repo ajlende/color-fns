@@ -1,6 +1,6 @@
 /* eslint-env node */
 
-export default {
+module.exports = {
 	extensions: ["ts"],
 	require: ["ts-node/register/transpile-only"],
 }
