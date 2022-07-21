@@ -25,12 +25,6 @@
 		"test": "nyc ava",
 		"test:watch": "ava --watch"
 	},
-	"lint-staged": {
-		"**/*": [
-			"eslint --fix",
-			"prettier --write"
-		]
-	},
 	"devDependencies": {
 		"@istanbuljs/nyc-config-typescript": "^1.0.1",
 		"@typescript-eslint/eslint-plugin": "^5.30.7",
