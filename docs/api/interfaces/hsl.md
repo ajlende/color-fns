@@ -4,7 +4,8 @@
 
 Object representation of hue, saturation, lightness, and alpha.
 
-**`example`** 
+**`Example`**
+
 ```
 const hsl: Hsl = {
   h: 210,
@@ -14,55 +15,59 @@ const hsl: Hsl = {
 }
 ```
 
-## Hierarchy
-
-* **Hsl**
-
 ## Table of contents
 
 ### Properties
 
-- [a](hsl.md#a)
-- [h](hsl.md#h)
-- [l](hsl.md#l)
-- [s](hsl.md#s)
+- [a](Hsl.md#a)
+- [h](Hsl.md#h)
+- [l](Hsl.md#l)
+- [s](Hsl.md#s)
 
 ## Properties
 
 ### a
 
-• **a**: *number*
+• **a**: `number`
 
 Alpha in the range [0,1].
 
-Defined in: [types.ts:62](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L62)
+#### Defined in
+
+[types.ts:62](https://github.com/ajlende/color-fns/blob/586d81e/src/types.ts#L62)
 
 ___
 
 ### h
 
-• **h**: *number*
+• **h**: `number`
 
 Hue in degrees.
 
-Defined in: [types.ts:50](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L50)
+#### Defined in
+
+[types.ts:50](https://github.com/ajlende/color-fns/blob/586d81e/src/types.ts#L50)
 
 ___
 
 ### l
 
-• **l**: *number*
+• **l**: `number`
 
 Lightness in the range [0,1].
 
-Defined in: [types.ts:58](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L58)
+#### Defined in
+
+[types.ts:58](https://github.com/ajlende/color-fns/blob/586d81e/src/types.ts#L58)
 
 ___
 
 ### s
 
-• **s**: *number*
+• **s**: `number`
 
 Saturation in the range [0,1].
 
-Defined in: [types.ts:54](https://github.com/ajlende/color-fns/blob/32c4ed2/src/types.ts#L54)
+#### Defined in
+
+[types.ts:54](https://github.com/ajlende/color-fns/blob/586d81e/src/types.ts#L54)
