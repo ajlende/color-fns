@@ -7,7 +7,6 @@ import toHsl from "."
 
 function assertToHsv(t: ExecutionContext, input: Color, expected: Hsv) {
 	const actual = toHsl(input)
-	t.log(actual)
 	assertHsv(t, actual, expected)
 }
 
