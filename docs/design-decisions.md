@@ -27,7 +27,7 @@ The CSS grammar for color representation is rather broad, allowing for a wide ra
 
 `rgba(127, 127, 127, 0.5)` and `rgb(127, 127, 127)`
 
- sRGB values are in the range [0,255] (floating-point is accepted) and the alpha is in the range [0,1]. The alpha is only included in the output if the value is less than one. The input parsing is still somewhat lenient—strings will still be parsed if the input includes an alpha value of one, and `rgb` and `rgba` are treated as identical. Invalid input strings for this simplified version include space-delimited notation and percentage values.
+sRGB values are in the range [0,255] (floating-point is accepted) and the alpha is in the range [0,1]. The alpha is only included in the output if the value is less than one. The input parsing is still somewhat lenient—strings will still be parsed if the input includes an alpha value of one, and `rgb` and `rgba` are treated as identical. Invalid input strings for this simplified version include space-delimited notation and percentage values.
 
 #### HSL Color Strings
 

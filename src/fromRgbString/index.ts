@@ -1,6 +1,7 @@
 import { RgbString, Color } from "../types"
 
-const RGBA_REGEX = /rgba?\(\s*([\d.e+-]+)[\s,]+([\d.e+-]+)[\s,]+([\d.e+-]+)(?:[\s,]+([\d.e+-]+))?\s*\)/i
+const RGBA_REGEX =
+	/rgba?\(\s*([\d.e+-]+)[\s,]+([\d.e+-]+)[\s,]+([\d.e+-]+)(?:[\s,]+([\d.e+-]+))?\s*\)/i
 
 /**
  * Convert simple RGB strings to the intermediary Color format

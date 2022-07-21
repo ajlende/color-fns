@@ -1,7 +1,8 @@
 import { Color, HslString } from "../types"
 import fromHsl from "../fromHsl"
 
-const HSLA_REGEX = /hsla?\(\s*([\d.e+-]+)[\s,]+([\d.e+-]+)%[\s,]+([\d.e+-]+)%(?:[\s,]+([\d.e+-]+))?\s*\)/i
+const HSLA_REGEX =
+	/hsla?\(\s*([\d.e+-]+)[\s,]+([\d.e+-]+)%[\s,]+([\d.e+-]+)%(?:[\s,]+([\d.e+-]+))?\s*\)/i
 
 /**
  * Convert `hsl()` or `hsla()` to the intermediary Color format

@@ -17,7 +17,7 @@ export default function fromList<
 	// assigned to an `unknown` type argument.
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	R extends NonemptyReadonlyArray<ColorType<any>>,
-	T extends ExtractColorTypes<R>
+	T extends ExtractColorTypes<R>,
 >(colorTypes: R, color: T[number]): Color {
 	const colorType = colorTypes.find(({ isType }) => isType(color))
 
