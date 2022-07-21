@@ -1,8 +1,12 @@
+.eslintignore
 .exclude
+.husky
 .nyc_output
+.prettierignore
 build
 cjs
 coverage
 docs/api
 esm
 types
+yarn.lock

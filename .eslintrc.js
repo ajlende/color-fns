@@ -9,6 +9,5 @@ module.exports = {
 		// More config is required before enabling this
 		// "plugin:@typescript-eslint/recommended-requiring-type-checking",
 		"plugin:prettier/recommended",
-		"prettier/@typescript-eslint",
 	],
 }
