@@ -13,7 +13,7 @@
 		"node": ">=10.13.0"
 	},
 	"scripts": {
-		"build": "yarn clean && concurrently \"yarn:build:*\"",
+		"build": "npm run clean && concurrently \"npm:build:*\"",
 		"build:cjs": "tsc -p tsconfig.cjs.json",
 		"build:esm": "tsc -p tsconfig.esm.json",
 		"build:types": "tsc -p tsconfig.types.json",
@@ -24,7 +24,7 @@
 		"lint": "(eslint '**/*.{js,ts,tsx}' || true) && tsc --noEmit",
 		"lint:fix": "(eslint --cache --fix '**/*.{js,ts,tsx}' || true) && prettier --write .",
 		"prepare": "husky install",
-		"prepublish": "yarn build",
+		"prepublish": "npm run build",
 		"test": "nyc ava",
 		"test:watch": "ava --watch"
 	},
