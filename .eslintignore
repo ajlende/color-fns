@@ -1,9 +1,0 @@
-.exclude
-.husky
-.nyc_output
-build
-cjs
-coverage
-docs
-esm
-types

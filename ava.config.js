@@ -1,6 +1,4 @@
-/* eslint-env node */
-
-module.exports = {
-	extensions: ["ts"],
-	require: ["ts-node/register/transpile-only"],
+export default {
+	extensions: { ts: "module" },
+	nodeArguments: ["--import=@septh/ts-run"],
 }

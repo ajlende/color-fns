@@ -2,26 +2,26 @@
 // Types
 // -------------------------------------
 
-export * from "./types"
+export type * from "./types.js"
 
 // -------------------------------------
 // Internal color representation
 // -------------------------------------
 
 // Vec4: Internal representation in sRGB space, also useful for WebGL, not clamped
-export { default as fromVec4 } from "./fromVec4"
-export { default as isVec4 } from "./isVec4"
-export { default as toVec4 } from "./toVec4"
+export { default as fromVec4 } from "./fromVec4.js"
+export { default as isVec4 } from "./isVec4.js"
+export { default as toVec4 } from "./toVec4.js"
 
 // Rgb: An object representation of the color in sRGB space, not clamped
-export { default as fromRgb } from "./fromRgb"
-export { default as isRgb } from "./isRgb"
-export { default as toRgb } from "./toRgb"
+export { default as fromRgb } from "./fromRgb.js"
+export { default as isRgb } from "./isRgb.js"
+export { default as toRgb } from "./toRgb.js"
 
 // Hsl: An object representation of the color in sRGB HSL space, not clamped
-export { default as fromHsl } from "./fromHsl"
-export { default as isHsl } from "./isHsl"
-export { default as toHsl } from "./toHsl"
+export { default as fromHsl } from "./fromHsl.js"
+export { default as isHsl } from "./isHsl.js"
+export { default as toHsl } from "./toHsl.js"
 
 // TODO: lRGB: linear space, not clamped
 
@@ -68,19 +68,19 @@ export { default as toHsl } from "./toHsl"
 // @see https://github.com/stayradiated/colr for fast implementations
 
 // sRGB Hexadecimal: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
-export { default as fromHex } from "./fromHex"
-export { default as isHex } from "./isHex"
-export { default as toHex } from "./toHex"
+export { default as fromHex } from "./fromHex.js"
+export { default as isHex } from "./isHex.js"
+export { default as toHex } from "./toHex.js"
 
 // sRGB Functions: rgb() and rgba()
-export { default as fromRgbString } from "./fromRgbString"
-export { default as isRgbString } from "./isRgbString"
-export { default as toRgbString } from "./toRgbString"
+export { default as fromRgbString } from "./fromRgbString.js"
+export { default as isRgbString } from "./isRgbString.js"
+export { default as toRgbString } from "./toRgbString.js"
 
 // HSL Colors: hsl() and hsla()
-export { default as fromHslString } from "./fromHslString"
-export { default as isHslString } from "./isHslString"
-export { default as toHslString } from "./toHslString"
+export { default as fromHslString } from "./fromHslString.js"
+export { default as isHslString } from "./isHslString.js"
+export { default as toHslString } from "./toHslString.js"
 
 // TODO: Color keywords: named, transparent, currentcolor? (probably not accessible), system? (deprecated in CSS3)
 
@@ -115,10 +115,10 @@ export { default as toHslString } from "./toHslString"
 // -------------------------------------
 
 // Parse(parsers, color)
-export { default as fromList } from "./fromList"
+export { default as fromList } from "./fromList.js"
 
 // FromAny(color)
-export { default as fromAny } from "./fromAny"
+export { default as fromAny } from "./fromAny.js"
 
 // TODO: FromCss(color)
 
@@ -128,7 +128,7 @@ export { default as fromAny } from "./fromAny"
 // Convert
 // -------------------------------------
 
-export { default as convert } from "./convert"
+export { default as convert } from "./convert.js"
 
 // -------------------------------------
 // Color Transformations

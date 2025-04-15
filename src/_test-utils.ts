@@ -1,13 +1,13 @@
 // eslint-disable-next-line ava/use-test
 import { ExecutionContext } from "ava"
 
-import { Color, Hsl, Hsv } from "./types"
+import { Color, Hsl, Hsv } from "./types.js"
 
 /**
  * Tolerance for floating point assertions. Most values are within the range
  * [0,1] and we want to keep reasonable values when reversing a computation.
  */
-export const TOLERANCE = Math.pow(2, -32)
+export const TOLERANCE: number = Math.pow(2, -32)
 
 /**
  * Assert that `actual` is the same Color as `expected`
@@ -27,9 +27,7 @@ export function assertColor(
 		blue: expected[2] - actual[2],
 		alpha: expected[3] - actual[3],
 	}
-	const closeEnough = Object.values(diff).every(
-		(d) => Math.abs(d) < TOLERANCE,
-	)
+	const closeEnough = Object.values(diff).every((d) => Math.abs(d) < TOLERANCE)
 	t.true(closeEnough, `Values are off by: ${JSON.stringify(diff, null, 2)}.`)
 }
 
@@ -51,9 +49,7 @@ export function assertHsl(
 		lightness: expected.l - actual.l,
 		alpha: expected.a - actual.a,
 	}
-	const closeEnough = Object.values(diff).every(
-		(d) => Math.abs(d) < TOLERANCE,
-	)
+	const closeEnough = Object.values(diff).every((d) => Math.abs(d) < TOLERANCE)
 	t.true(closeEnough, `Values are off by: ${JSON.stringify(diff, null, 2)}.`)
 }
 
@@ -75,8 +71,6 @@ export function assertHsv(
 		value: expected.v - actual.v,
 		alpha: expected.a - actual.a,
 	}
-	const closeEnough = Object.values(diff).every(
-		(d) => Math.abs(d) < TOLERANCE,
-	)
+	const closeEnough = Object.values(diff).every((d) => Math.abs(d) < TOLERANCE)
 	t.true(closeEnough, `Values are off by: ${JSON.stringify(diff, null, 2)}.`)
 }

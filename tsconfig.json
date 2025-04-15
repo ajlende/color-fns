@@ -1,19 +1,26 @@
 {
-	"ts-node": {
-		"transpileOnly": true
-	},
 	"compilerOptions": {
-		"module": "CommonJS",
-		"target": "ESNext",
-		"lib": ["ESNext"],
-		"rootDir": "src",
-		"outDir": "build",
-		"moduleResolution": "node",
-		"incremental": true,
+		"module": "NodeNext",
+		"target": "ES2022",
+
+		"strict": true,
+		"skipLibCheck": true,
 		"isolatedModules": true,
+		"isolatedDeclarations": true,
+		// "erasableSyntaxOnly": true,
+
+		"rootDir": "src",
+		"outDir": "dist",
+
+		"declaration": true,
+		"declarationMap": true,
 		"sourceMap": true,
-		"removeComments": true,
-		"strict": true
+		"incremental": true,
+
+		"noEmit": true,
+
+		"moduleDetection": "force"
 	},
-	"include": ["src"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "build"]
 }
