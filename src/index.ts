@@ -5,7 +5,7 @@
 export type * from "./types.js"
 
 // -------------------------------------
-// Internal color representation
+// RGB Color Space Objects
 // -------------------------------------
 
 // Vec4: Internal representation in sRGB space, also useful for WebGL, not clamped
@@ -23,11 +23,18 @@ export { default as fromHsl } from "./format/color-space/hsl/fromHsl.js"
 export { default as isHsl } from "./format/color-space/hsl/isHsl.js"
 export { default as toHsl } from "./format/color-space/hsl/toHsl.js"
 
+// Hsv: An object representation of the color in sRGB HSV space, not clamped
+export { default as fromHsv } from "./format/color-space/hsv/fromHsv.js"
+export { default as isHsv } from "./format/color-space/hsv/isHsv.js"
+export { default as toHsv } from "./format/color-space/hsv/toHsv.js"
+
 // TODO: lRGB: linear space, not clamped
 
 // -------------------------------------
-// Matlab Colorspaces (https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/28790/versions/5/previews/colorspace/colorspace.html#CUsage)
+// Matlab Colorspaces
 // -------------------------------------
+
+// https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/28790/versions/5/previews/colorspace/colorspace.html#CUsage
 
 // TODO: sRGB: IEC 61966-2-1, clamped [0,1]
 
@@ -62,10 +69,15 @@ export { default as toHsl } from "./format/color-space/hsl/toHsl.js"
 // TODO: CIE CAT02 LMS
 
 // -------------------------------------
-// CSS Color Formats (https://www.w3.org/TR/css-color-4)
+// String Color Formats
 // -------------------------------------
 
-// @see https://github.com/stayradiated/colr for fast implementations
+// These are simplified, stricter versions of the CSS Color Module Level 4
+// https://www.w3.org/TR/css-color-4
+
+export { default as fromString } from "./format/string/fromString.js"
+
+// https://github.com/stayradiated/colr for fast implementations
 
 // sRGB Hexadecimal: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
 export { default as fromHex } from "./format/string/hex/fromHex.js"
@@ -82,7 +94,7 @@ export { default as fromHslString } from "./format/string/hslString/fromHslStrin
 export { default as isHslString } from "./format/string/hslString/isHslString.js"
 export { default as toHslString } from "./format/string/hslString/toHslString.js"
 
-// TODO: Color keywords: named, transparent, currentcolor? (probably not accessible), system? (deprecated in CSS3)
+// TODO: HSV Colors: hsv() and hsva()
 
 // TODO: HWM Colors: hwb()
 
@@ -95,7 +107,30 @@ export { default as toHslString } from "./format/string/hslString/toHslString.js
 // TODO: Device-dependent CMYK Colors: device-cmyk()
 
 // -------------------------------------
-// Other color formats
+// CSS Color Spaces
+// -------------------------------------
+
+// https://www.w3.org/TR/css-color-4
+
+// Strict adherence to the CSS Color Module Level 4 specification
+// `to` functions are not implemented. Use the string functions instead.
+
+// TODO: <named-color> | transparent | currentColor
+
+// TODO: <hex-color>
+
+// TODO: <rgb()> | <rgba()>
+
+// TODO: <hsl()> | <hsla()>
+
+// TODO: <hwb()>
+
+// TODO: <lab()> | <lch()> | <oklab()> | <oklch()>
+
+// TODO: <color()>
+
+// -------------------------------------
+// Other Color Spaces
 // -------------------------------------
 
 // TODO: Spectrum http://www.brucelindbloom.com/index.html?Math.html
@@ -199,9 +234,5 @@ export { default as convert } from "./core/convert.js"
 // TODO: IsReadable(reference, color, wcag_opts)
 
 // color_spaces/other/format
-export { default as fromHsv } from "./format/color-space/hsv/fromHsv.js"
-export { default as isHsv } from "./format/color-space/hsv/isHsv.js"
-export { default as toHsv } from "./format/color-space/hsv/toHsv.js"
 
 // formats/string/any
-export { default as fromString } from "./format/string/fromString.js"
