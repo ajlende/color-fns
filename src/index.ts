@@ -2,26 +2,24 @@
 // Types
 // -------------------------------------
 
-export type * from "./types.js"
-
 // -------------------------------------
 // Internal color representation
 // -------------------------------------
 
 // Vec4: Internal representation in sRGB space, also useful for WebGL, not clamped
-export { default as fromVec4 } from "./fromVec4.js"
-export { default as isVec4 } from "./isVec4.js"
-export { default as toVec4 } from "./toVec4.js"
+export { default as fromVec4 } from "./format/data/vec4/fromVec4.js"
+export { default as isVec4 } from "./format/data/vec4/isVec4.js"
+export { default as toVec4 } from "./format/data/vec4/toVec4.js"
 
 // Rgb: An object representation of the color in sRGB space, not clamped
-export { default as fromRgb } from "./fromRgb.js"
-export { default as isRgb } from "./isRgb.js"
-export { default as toRgb } from "./toRgb.js"
+export { default as fromRgb } from "./format/color-space/rgb/fromRgb.js"
+export { default as isRgb } from "./format/color-space/rgb/isRgb.js"
+export { default as toRgb } from "./format/color-space/rgb/toRgb.js"
 
 // Hsl: An object representation of the color in sRGB HSL space, not clamped
-export { default as fromHsl } from "./fromHsl.js"
-export { default as isHsl } from "./isHsl.js"
-export { default as toHsl } from "./toHsl.js"
+export { default as fromHsl } from "./format/color-space/hsl/fromHsl.js"
+export { default as isHsl } from "./format/color-space/hsl/isHsl.js"
+export { default as toHsl } from "./format/color-space/hsl/toHsl.js"
 
 // TODO: lRGB: linear space, not clamped
 
@@ -68,19 +66,19 @@ export { default as toHsl } from "./toHsl.js"
 // @see https://github.com/stayradiated/colr for fast implementations
 
 // sRGB Hexadecimal: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
-export { default as fromHex } from "./fromHex.js"
-export { default as isHex } from "./isHex.js"
-export { default as toHex } from "./toHex.js"
+export { default as fromHex } from "./format/string/hex/fromHex.js"
+export { default as isHex } from "./format/string/hex/isHex.js"
+export { default as toHex } from "./format/string/hex/toHex.js"
 
 // sRGB Functions: rgb() and rgba()
-export { default as fromRgbString } from "./fromRgbString.js"
-export { default as isRgbString } from "./isRgbString.js"
-export { default as toRgbString } from "./toRgbString.js"
+export { default as fromRgbString } from "./format/string/rgbString/fromRgbString.js"
+export { default as isRgbString } from "./format/string/rgbString/isRgbString.js"
+export { default as toRgbString } from "./format/string/rgbString/toRgbString.js"
 
 // HSL Colors: hsl() and hsla()
-export { default as fromHslString } from "./fromHslString.js"
-export { default as isHslString } from "./isHslString.js"
-export { default as toHslString } from "./toHslString.js"
+export { default as fromHslString } from "./format/string/hslString/fromHslString.js"
+export { default as isHslString } from "./format/string/hslString/isHslString.js"
+export { default as toHslString } from "./format/string/hslString/toHslString.js"
 
 // TODO: Color keywords: named, transparent, currentcolor? (probably not accessible), system? (deprecated in CSS3)
 
@@ -115,10 +113,10 @@ export { default as toHslString } from "./toHslString.js"
 // -------------------------------------
 
 // Parse(parsers, color)
-export { default as fromList } from "./fromList.js"
+export { default as fromSome } from "./format/fromSome.js"
 
 // FromAny(color)
-export { default as fromAny } from "./fromAny.js"
+export { default as fromAny } from "./format/fromAny.js"
 
 // TODO: FromCss(color)
 
@@ -128,7 +126,7 @@ export { default as fromAny } from "./fromAny.js"
 // Convert
 // -------------------------------------
 
-export { default as convert } from "./convert.js"
+export { default as convert } from "./core/convert.js"
 
 // -------------------------------------
 // Color Transformations
@@ -197,3 +195,10 @@ export { default as convert } from "./convert.js"
 // TODO: MostReadable(reference, colors[])
 
 // TODO: IsReadable(reference, color, wcag_opts)
+
+// color_spaces/other/format
+export { default as fromHsv } from "./format/color-space/hsv/fromHsv.js"
+export { default as toHsv } from "./format/color-space/hsv/toHsv.js"
+
+// formats/string/any
+export { default as fromString } from "./format/string/fromString.js"
