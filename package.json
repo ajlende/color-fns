@@ -37,6 +37,7 @@
 		"prepublish": "rm -rf dist && npm run build"
 	},
 	"devDependencies": {
+		"@eslint/compat": "^1.2.8",
 		"@eslint/js": "^9.24.0",
 		"@septh/ts-run": "^2.0.0",
 		"ava": "^6.2.0",
