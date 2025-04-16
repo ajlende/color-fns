@@ -2,18 +2,44 @@
 
 import { fileURLToPath, URL } from "node:url"
 
-import eslint from "@eslint/js"
 import { includeIgnoreFile } from "@eslint/compat"
-import ava from "eslint-plugin-ava"
-import prettier from "eslint-config-prettier/flat"
+import eslintConfigPrettier from "eslint-config-prettier/flat"
+import eslintPluginAva from "eslint-plugin-ava"
 import tseslint from "typescript-eslint"
 
 const gitignorePath = fileURLToPath(new URL(".gitignore", import.meta.url))
 
 export default tseslint.config(
 	includeIgnoreFile(gitignorePath),
-	eslint.configs.recommended,
-	tseslint.configs.recommended,
-	ava.configs["flat/recommended"],
-	prettier,
+	tseslint.configs.strictTypeChecked,
+	tseslint.configs.stylisticTypeChecked,
+	{
+		languageOptions: {
+			parserOptions: {
+				ecmaVersion: "latest",
+				sourceType: "module",
+				projectService: true,
+				tsconfigRootDir: import.meta.dirname,
+			},
+		},
+		rules: {
+			"@typescript-eslint/restrict-template-expressions": "off",
+		},
+	},
+	{
+		files: ["src/**/*"],
+		rules: { "no-console": "error" },
+	},
+	{
+		files: ["*.js", "scripts/*.js"],
+		extends: [tseslint.configs.disableTypeChecked],
+	},
+	{
+		files: ["src/**/*.test.ts", "src/_test-utils.ts"],
+		extends: [eslintPluginAva.configs["flat/recommended"]],
+		rules: {
+			"no-console": "warn",
+		},
+	},
+	eslintConfigPrettier,
 )
