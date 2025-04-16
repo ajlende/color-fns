@@ -10,7 +10,7 @@ function assertFromHslString(
 	input: HslString,
 	expected: Color,
 ) {
-	return assertColor(t, fromHslString(input), expected)
+	assertColor(t, fromHslString(input), expected)
 }
 
 test(
