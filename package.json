@@ -73,7 +73,7 @@
 	"scripts": {
 		"build": "tsc --project tsconfig.build.json",
 		"dev": "ava --watch",
-		"docs": "typedoc src/index.ts",
+		"docs": "typedoc",
 		"test": "c8 ava",
 		"format": "npm run format:eslint && npm run format:prettier",
 		"format:eslint": "eslint --fix",

@@ -2,9 +2,9 @@
 
 /** @type {Partial<import("typedoc").TypeDocOptions>} */
 export default {
-	entryPoints: ["./src/index.ts"],
+	entryPoints: ["src/index.ts"],
 	plugin: ["typedoc-plugin-markdown"],
-	out: "docs/api",
+	out: "docs/md",
 	readme: "none",
 	includeVersion: true,
 }
