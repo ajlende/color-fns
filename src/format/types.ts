@@ -4,7 +4,7 @@ import type { Color } from "../types.js"
  * This contains a function to test if a value is of a given type and then
  * convert that type to the intermediate format.
  */
-// TODO: Think of a better name. 
+// TODO: Think of a better name.
 export interface ColorType<T> {
 	/**
 	 * Check to see if the type of the input is T so it can be converted later.
