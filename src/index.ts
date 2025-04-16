@@ -200,6 +200,7 @@ export { default as convert } from "./core/convert.js"
 
 // color_spaces/other/format
 export { default as fromHsv } from "./format/color-space/hsv/fromHsv.js"
+export { default as isHsv } from "./format/color-space/hsv/isHsv.js"
 export { default as toHsv } from "./format/color-space/hsv/toHsv.js"
 
 // formats/string/any
