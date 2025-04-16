@@ -9,11 +9,55 @@
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
-			"require": "./dist/index.js"
+			"types": "./dist/index.d.ts"
 		},
-		"./*.js": {
-			"import": "./dist/*.js",
-			"require": "./dist/*.js"
+		"./core/*.js": {
+			"import": "./dist/core/*.js",
+			"types": "./dist/core/*.d.ts"
+		},
+		"./format/*.js": {
+			"import": "./dist/format/*.js",
+			"types": "./dist/format/*.d.ts"
+		},
+		"./format/color-space/*.js": {
+			"import": "./dist/format/color-space/*.js",
+			"types": "./dist/format/color-space/*.d.ts"
+		},
+		"./format/data/*.js": {
+			"import": "./dist/format/data/*.js",
+			"types": "./dist/format/data/*.d.ts"
+		},
+		"./format/string/*.js": {
+			"import": "./dist/format/string/*.js",
+			"types": "./dist/format/string/*.d.ts"
+		},
+		"./format/color-space/hsl/*.js": {
+			"import": "./dist/format/color-space/hsl/*.js",
+			"types": "./dist/format/color-space/hsl/*.d.ts"
+		},
+		"./format/color-space/hsv/*.js": {
+			"import": "./dist/format/color-space/hsv/*.js",
+			"types": "./dist/format/color-space/hsv/*.d.ts"
+		},
+		"./format/color-space/rgb/*.js": {
+			"import": "./dist/format/color-space/rgb/*.js",
+			"types": "./dist/format/color-space/rgb/*.d.ts"
+		},
+		"./format/data/vec4/*.js": {
+			"import": "./dist/format/data/vec4/*.js",
+			"types": "./dist/format/data/vec4/*.d.ts"
+		},
+		"./format/string/hex/*.js": {
+			"import": "./dist/format/string/hex/*.js",
+			"types": "./dist/format/string/hex/*.d.ts"
+		},
+		"./format/string/hslString/*.js": {
+			"import": "./dist/format/string/hslString/*.js",
+			"types": "./dist/format/string/hslString/*.d.ts"
+		},
+		"./format/string/rgbString/*.js": {
+			"import": "./dist/format/string/rgbString/*.js",
+			"types": "./dist/format/string/rgbString/*.d.ts"
 		}
 	},
 	"files": [
