@@ -19,7 +19,7 @@ export interface ColorType<T> {
 /**
  * Readonly array with at least one element.
  */
-export type NonemptyReadonlyArray<T> = ReadonlyArray<T> & {
+export type NonemptyReadonlyArray<T> = readonly T[] & {
 	readonly 0: T
 }
 
