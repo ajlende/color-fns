@@ -28,7 +28,7 @@
 	},
 	"scripts": {
 		"build": "tsc --project tsconfig.build.json",
-		"lint": "eslint && prettier --check .",
+		"check": "eslint && prettier --check . && tsc --noEmit",
 		"format": "eslint --fix && prettier --write .",
 		"docs": "typedoc src/index.ts",
 		"test": "c8 ava",
