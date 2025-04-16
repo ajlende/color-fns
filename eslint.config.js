@@ -37,9 +37,7 @@ export default tseslint.config(
 	{
 		files: ["src/**/*.test.ts", "src/_test-utils.ts"],
 		extends: [eslintPluginAva.configs["flat/recommended"]],
-		rules: {
-			"no-console": "warn",
-		},
+		rules: { "no-console": "warn" },
 	},
 	eslintConfigPrettier,
 )
