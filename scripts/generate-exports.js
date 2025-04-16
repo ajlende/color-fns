@@ -1,5 +1,4 @@
-/* eslint-env node */
-/* global console */
+// @ts-check
 
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs"
 import { join, relative, dirname } from "path"
@@ -44,6 +43,6 @@ for (const dir of directories) {
 const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"))
 packageJson.exports = exports
 
-writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + "\n")
+writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n")
 
 console.log("Exports generated")
