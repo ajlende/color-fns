@@ -75,6 +75,9 @@
 		"dev": "ava --watch",
 		"docs": "typedoc",
 		"test": "c8 ava",
+		"clean": "concurrently \"npm:clean:*\" --prefix-colors=auto --group",
+		"clean:build": "rm -rf dist",
+		"clean:docs": "rm -rf docs",
 		"format": "npm run format:eslint && npm run format:prettier",
 		"format:eslint": "eslint --fix",
 		"format:prettier": "prettier --write --list-different .",
@@ -83,7 +86,7 @@
 		"check:prettier": "prettier --check .",
 		"check:types": "tsc --noEmit",
 		"prepare": "husky || true",
-		"prepublish": "rm -rf dist && npm run build"
+		"prepublish": "npm run clean:build && npm run build"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.8",
