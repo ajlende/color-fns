@@ -4,7 +4,7 @@
 export default {
 	entryPoints: ["src/index.ts"],
 	plugin: ["typedoc-plugin-markdown"],
-	out: "docs/md",
+	out: "docs/api",
 	readme: "none",
 	includeVersion: true,
 }
