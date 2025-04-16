@@ -20,7 +20,6 @@ export default function fromHex(color: Hex): Color {
 	let b = 0x00
 	let a = 0xff
 
-	/* eslint-disable no-fallthrough */
 	switch (c.length) {
 		// Parse #RRGGBBAA and #RRGGBB strings.
 		case 9:
@@ -41,7 +40,6 @@ export default function fromHex(color: Hex): Color {
 		default:
 			throw new RangeError("Color is not a valid hex format.")
 	}
-	/* eslint-enable no-fallthrough */
 
 	return [r / 0xff, g / 0xff, b / 0xff, a / 0xff]
 }
