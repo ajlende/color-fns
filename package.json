@@ -11,53 +11,49 @@
 			"import": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		},
-		"./core/*.js": {
-			"import": "./dist/core/*.js",
-			"types": "./dist/core/*.d.ts"
+		"./formats/*.js": {
+			"import": "./dist/formats/*.js",
+			"types": "./dist/formats/*.d.ts"
 		},
-		"./format/*.js": {
-			"import": "./dist/format/*.js",
-			"types": "./dist/format/*.d.ts"
+		"./operations/*.js": {
+			"import": "./dist/operations/*.js",
+			"types": "./dist/operations/*.d.ts"
 		},
-		"./format/color-space/*.js": {
-			"import": "./dist/format/color-space/*.js",
-			"types": "./dist/format/color-space/*.d.ts"
+		"./formats/hex/*.js": {
+			"import": "./dist/formats/hex/*.js",
+			"types": "./dist/formats/hex/*.d.ts"
 		},
-		"./format/data/*.js": {
-			"import": "./dist/format/data/*.js",
-			"types": "./dist/format/data/*.d.ts"
+		"./formats/hsl/*.js": {
+			"import": "./dist/formats/hsl/*.js",
+			"types": "./dist/formats/hsl/*.d.ts"
 		},
-		"./format/string/*.js": {
-			"import": "./dist/format/string/*.js",
-			"types": "./dist/format/string/*.d.ts"
+		"./formats/hslCss/*.js": {
+			"import": "./dist/formats/hslCss/*.js",
+			"types": "./dist/formats/hslCss/*.d.ts"
 		},
-		"./format/color-space/hsl/*.js": {
-			"import": "./dist/format/color-space/hsl/*.js",
-			"types": "./dist/format/color-space/hsl/*.d.ts"
+		"./formats/hslString/*.js": {
+			"import": "./dist/formats/hslString/*.js",
+			"types": "./dist/formats/hslString/*.d.ts"
 		},
-		"./format/color-space/hsv/*.js": {
-			"import": "./dist/format/color-space/hsv/*.js",
-			"types": "./dist/format/color-space/hsv/*.d.ts"
+		"./formats/hsv/*.js": {
+			"import": "./dist/formats/hsv/*.js",
+			"types": "./dist/formats/hsv/*.d.ts"
 		},
-		"./format/color-space/rgb/*.js": {
-			"import": "./dist/format/color-space/rgb/*.js",
-			"types": "./dist/format/color-space/rgb/*.d.ts"
+		"./formats/rgb/*.js": {
+			"import": "./dist/formats/rgb/*.js",
+			"types": "./dist/formats/rgb/*.d.ts"
 		},
-		"./format/data/vec4/*.js": {
-			"import": "./dist/format/data/vec4/*.js",
-			"types": "./dist/format/data/vec4/*.d.ts"
+		"./formats/rgbCss/*.js": {
+			"import": "./dist/formats/rgbCss/*.js",
+			"types": "./dist/formats/rgbCss/*.d.ts"
 		},
-		"./format/string/hex/*.js": {
-			"import": "./dist/format/string/hex/*.js",
-			"types": "./dist/format/string/hex/*.d.ts"
+		"./formats/rgbString/*.js": {
+			"import": "./dist/formats/rgbString/*.js",
+			"types": "./dist/formats/rgbString/*.d.ts"
 		},
-		"./format/string/hslString/*.js": {
-			"import": "./dist/format/string/hslString/*.js",
-			"types": "./dist/format/string/hslString/*.d.ts"
-		},
-		"./format/string/rgbString/*.js": {
-			"import": "./dist/format/string/rgbString/*.js",
-			"types": "./dist/format/string/rgbString/*.d.ts"
+		"./formats/vec4/*.js": {
+			"import": "./dist/formats/vec4/*.js",
+			"types": "./dist/formats/vec4/*.d.ts"
 		}
 	},
 	"files": [
