@@ -74,6 +74,7 @@
 		"clean": "concurrently \"npm:clean:*\" --prefix-colors=auto --group",
 		"clean:build": "rm -rf dist",
 		"clean:docs": "rm -rf docs docs/api docs/api.json",
+		"clean:test": "rm -rf coverage",
 		"format": "npm run format:eslint && npm run format:prettier",
 		"format:eslint": "eslint --fix",
 		"format:prettier": "prettier --write --list-different .",
