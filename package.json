@@ -69,11 +69,11 @@
 	"scripts": {
 		"build": "tsc --project tsconfig.build.json",
 		"dev": "ava --watch",
-		"docs": "typedoc",
+		"docs": "typedoc && typedoc --json docs/api.json",
 		"test": "c8 ava",
 		"clean": "concurrently \"npm:clean:*\" --prefix-colors=auto --group",
 		"clean:build": "rm -rf dist",
-		"clean:docs": "rm -rf docs",
+		"clean:docs": "rm -rf docs docs/api docs/api.json",
 		"format": "npm run format:eslint && npm run format:prettier",
 		"format:eslint": "eslint --fix",
 		"format:prettier": "prettier --write --list-different .",

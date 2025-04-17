@@ -7,7 +7,8 @@ node_modules
 # Build artifacts
 dist
 coverage
-docs
+docs/api
+docs/api.json
 
 # TypeScript cache
 *.tsbuildinfo
