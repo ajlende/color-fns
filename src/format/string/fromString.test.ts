@@ -1,7 +1,11 @@
-import { default as test } from "ava"
+import test from "ava"
+
+import { execEqualsValue } from "../../_test-utils.js"
 
 import type { Hex, RgbString, HslString } from "../../types.js"
 import fromString from "./fromString.js"
+
+const assertFromString = execEqualsValue(fromString)
 
 Object.entries({
 	// Add every string way of representing white here
@@ -14,7 +18,5 @@ Object.entries({
 	RgbString: "rgb(255, 255, 255)" as RgbString,
 	RgbaString: "rgba(255, 255, 255, 1)" as RgbString,
 }).forEach(([type, value]) => {
-	test(`parses ${type} string`, (t) => {
-		t.deepEqual(fromString(value), [1, 1, 1, 1])
-	})
+	test(`parses ${type} string`, assertFromString, value, [1, 1, 1, 1])
 })

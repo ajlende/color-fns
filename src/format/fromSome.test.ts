@@ -1,4 +1,4 @@
-import { default as test } from "ava"
+import test from "ava"
 
 import fromSome from "./fromSome.js"
 import type { Color } from "../types.js"

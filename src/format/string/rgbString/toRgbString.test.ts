@@ -1,22 +1,29 @@
 import test from "ava"
 
-import type { Color, RgbString } from "../../../types.js"
+import { execEqualsValue } from "../../../_test-utils.js"
+
 import toRgbString from "./toRgbString.js"
 
-test("returns an RgbString omitting the alpha value of one", (t) => {
-	const input: Color = [0.2, 0.4, 0.6, 1]
-	const output: RgbString = "rgb(51, 102, 153)"
-	t.deepEqual(toRgbString(input), output)
-})
+const assertToRgbString = execEqualsValue(toRgbString)
 
-test("returns an RgbString with the alpha less than one", (t) => {
-	const input: Color = [0.2, 0.4, 0.6, 0.8]
-	const output: RgbString = "rgba(51, 102, 153, 0.8)"
-	t.deepEqual(toRgbString(input), output)
-})
+test(
+	"returns an RgbString omitting the alpha value of one", //
+	assertToRgbString,
+	[0.2, 0.4, 0.6, 1],
+	"rgb(51, 102, 153)",
+)
 
-test("out of range values are maintained", (t) => {
-	const input: Color = [2, 4, 6, 1]
-	const output: RgbString = "rgb(510, 1020, 1530)"
-	t.deepEqual(toRgbString(input), output)
-})
+test(
+	"returns an RgbString with the alpha less than one", //
+	assertToRgbString,
+	[0.2, 0.4, 0.6, 0.8],
+	"rgba(51, 102, 153, 0.8)",
+)
+
+test(
+	"out of range values are maintained", //
+	assertToRgbString,
+	[2, 4, 6, 1],
+	"rgb(510, 1020, 1530)",
+)
+

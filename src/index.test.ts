@@ -1,4 +1,4 @@
-import { default as test } from "ava"
+import test from "ava"
 
 import { convert, fromAny, toHex } from "./index.js"
 

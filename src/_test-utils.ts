@@ -1,7 +1,5 @@
 // eslint-disable-next-line ava/use-test
-import { ExecutionContext } from "ava"
-
-import { Color, Hsl, Hsv } from "./types.js"
+import { ImplementationFn } from "ava"
 
 /**
  * Tolerance for floating point assertions. Most values are within the range
@@ -10,67 +8,102 @@ import { Color, Hsl, Hsv } from "./types.js"
 export const TOLERANCE: number = Math.pow(2, -32)
 
 /**
- * Assert that `actual` is the same Color as `expected`
+ * Check if an object is indexable
  *
- * @param t AVA execution context
- * @param actual Actual computed value
- * @param expected Expected result
+ * @param obj Object to check
+ *
+ * @returns Whether the object is indexable
  */
-export function assertColor(
-	t: ExecutionContext,
-	actual: Color,
-	expected: Color,
-): void {
-	const diff = {
-		red: expected[0] - actual[0],
-		green: expected[1] - actual[1],
-		blue: expected[2] - actual[2],
-		alpha: expected[3] - actual[3],
-	}
-	const closeEnough = Object.values(diff).every((d) => Math.abs(d) < TOLERANCE)
-	t.true(closeEnough, `Values are off by: ${JSON.stringify(diff, null, 2)}.`)
+function isIndexableObject(obj: unknown): obj is Record<string, unknown> {
+	return typeof obj === "object" && obj !== null
 }
 
 /**
- * Assert that `actual` is the same Hsl object as `expected`
+ * Replace values within a tolerance with the expected value for comparison
+ * with `t.deepEqual()`.
  *
- * @param t AVA execution context
  * @param actual Actual computed value
  * @param expected Expected result
+ *
+ * @returns Filtered value
  */
-export function assertHsl(
-	t: ExecutionContext,
-	actual: Hsl,
-	expected: Hsl,
-): void {
-	const diff = {
-		hue: expected.h - actual.h,
-		saturation: expected.s - actual.s,
-		lightness: expected.l - actual.l,
-		alpha: expected.a - actual.a,
+function withTolerance(actual: unknown, expected: unknown): unknown {
+	if (Array.isArray(actual) && Array.isArray(expected)) {
+		return actual.map((value, index) => withTolerance(value, expected[index]))
 	}
-	const closeEnough = Object.values(diff).every((d) => Math.abs(d) < TOLERANCE)
-	t.true(closeEnough, `Values are off by: ${JSON.stringify(diff, null, 2)}.`)
+	if (isIndexableObject(actual) && isIndexableObject(expected)) {
+		const result: Record<string, unknown> = {}
+		for (const key in actual) {
+			result[key] = withTolerance(actual[key], expected[key])
+		}
+		return result
+	}
+	if (typeof actual === "number" && typeof expected === "number") {
+		return Math.abs(expected - actual) < TOLERANCE ? expected : actual
+	}
+	return actual
 }
 
 /**
- * Assert that `actual` is the same Hsv object as `expected`
+ * Create a test that asserts that the result is valid
  *
- * @param t AVA execution context
- * @param actual Actual computed value
- * @param expected Expected result
+ * @param isFn Function that returns a boolean
+ *
+ * @returns Implementation function
  */
-export function assertHsv(
-	t: ExecutionContext,
-	actual: Hsv,
-	expected: Hsv,
-): void {
-	const diff = {
-		hue: expected.h - actual.h,
-		saturation: expected.s - actual.s,
-		value: expected.v - actual.v,
-		alpha: expected.a - actual.a,
+export function execValidValue<Value>(
+	isFn: (value: unknown) => value is Value,
+): ImplementationFn<[Value]> {
+	return function (t, value: Value) {
+		t.true(isFn(value))
 	}
-	const closeEnough = Object.values(diff).every((d) => Math.abs(d) < TOLERANCE)
-	t.true(closeEnough, `Values are off by: ${JSON.stringify(diff, null, 2)}.`)
+}
+
+/**
+ * Create a test that asserts that the result is invalid
+ *
+ * @param isFn Function that returns a boolean
+ *
+ * @returns Implementation function
+ */
+export function execInvalidValue(
+	isFn: (value: unknown) => value is unknown,
+): ImplementationFn<[unknown]> {
+	return function (t, value: unknown) {
+		t.false(isFn(value))
+	}
+}
+
+/**
+ * Create a test that asserts that the result is equal to the expected value
+ *
+ * @param fromFn Function that converts a value to an expected result
+ *
+ * @returns Implementation function
+ */
+export function execEqualsValue<Value, Expected>(
+	fromFn: (value: Value) => Expected,
+): ImplementationFn<[Value, Expected]> {
+	return function (t, value: Value, expected: Expected) {
+		t.deepEqual(
+			withTolerance(fromFn(value), expected),
+			expected,
+			`["${value}", [${expected}]]`,
+		)
+	}
+}
+
+/**
+ * Create a test that asserts that the result is a RangeError
+ *
+ * @param fn Function that throws a RangeError
+ *
+ * @returns Implementation function
+ */
+export function execRangeError<Value>(
+	fn: (value: Value) => unknown,
+): ImplementationFn<[Value]> {
+	return function (t, value: Value) {
+		t.throws(() => fn(value), { instanceOf: RangeError })
+	}
 }
