@@ -157,3 +157,8 @@ function MyComponent() {
 	)
 }
 ```
+
+### Default Coordinate Systems
+
+Use a right-handed coordinate system when rotations are involved.
+A positive rotation is counter-clockwise.

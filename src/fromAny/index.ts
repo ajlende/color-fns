@@ -41,6 +41,8 @@ type ParserTypes = ExtractColorTypes<typeof colorTypes>
 /**
  * Convert a color from any available parser.
  *
+ * ⚠︎ Performance: This requires downloading all parsers ahead of time.
+ *
  * @param color Any type of color that can be converted
  *
  * @return Color in the intermediary format
