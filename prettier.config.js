@@ -1,6 +1,6 @@
 // @ts-check
 
-/** @type {import('prettier').Options} */
+/** @type {import('prettier').Config} */
 export default {
 	semi: false,
 	useTabs: true,
