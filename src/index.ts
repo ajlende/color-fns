@@ -28,7 +28,10 @@ export { default as fromHsv } from "./formats/hsv/fromHsv.js"
 export { default as isHsv } from "./formats/hsv/isHsv.js"
 export { default as toHsv } from "./formats/hsv/toHsv.js"
 
-// TODO: lRGB: linear space, not clamped
+// lRGB: linear space, not clamped
+export { default as fromLrgb } from "./formats/lrgb/fromLrgb.js"
+export { default as isLrgb } from "./formats/lrgb/isLrgb.js"
+export { default as toLrgb } from "./formats/lrgb/toLrgb.js"
 
 // -------------------------------------
 // Matlab Colorspaces
