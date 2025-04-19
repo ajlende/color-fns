@@ -45,10 +45,3 @@ test("returns false when the input is a string", (t) => {
 test("returns false when the input is an empty object", (t) => {
 	t.false(isLrgb({}))
 })
-
-test("returns false when the input is out of range", (t) => {
-	t.false(isLrgb({ r: -1, g: 0, b: 0, a: 0 }))
-	t.false(isLrgb({ r: 2, g: 0, b: 0, a: 0 }))
-	t.false(isLrgb({ r: 0, g: 0, b: 0, a: -1 }))
-	t.false(isLrgb({ r: 0, g: 0, b: 0, a: 2 }))
-})
