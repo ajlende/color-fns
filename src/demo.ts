@@ -19,36 +19,43 @@ export interface ColorSpaceMap {
 export type Converter<
 	F extends keyof ColorSpaceMap,
 	T extends keyof ColorSpaceMap,
-> = (input: ColorSpaceMap[F]) => ColorSpaceMap[T]
+> = (x: ColorSpaceMap[F]) => ColorSpaceMap[T]
 
-// Our graph type: for each node, a (partial) map of outgoing edges.
-// We use `any` here because different edges have different F→T shapes.
-// Internally we’ll cast back to the right types.
-export type Graph = Partial<
-	Record<
-		keyof ColorSpaceMap,
-		Partial<Record<keyof ColorSpaceMap, Converter<any, any>>>
-	>
->
+// every F→T edge is correctly tracked by its own Converter<F,T>
+export type Graph = Partial<{
+	[F in keyof ColorSpaceMap]: Partial<{
+		[T in keyof ColorSpaceMap]: Converter<F, T>
+	}>
+}>
 
-// stub: find the shortest path (list of node‑keys) from → to
+// findPath just returns a list of keys;
+// we cast it down to a tuple [F, …, T] later
 export function findPath(
-	_graph: Graph,
-	_from: keyof ColorSpaceMap,
-	_to: keyof ColorSpaceMap,
+	graph: Graph,
+	from: keyof ColorSpaceMap,
+	to: keyof ColorSpaceMap,
 ): (keyof ColorSpaceMap)[] {
-	// e.g. BFS, return ['HWB','sRGB','HSL']
+	// stub: find the shortest path (list of node‑keys) from → to
 	return []
 }
 
-// stub: given the path of keys, build a single fn by composing
-// the primitive converters along that path.
-export function composeConverters(
-	_graph: Graph,
-	_path: (keyof ColorSpaceMap)[],
-): Converter<any, any> {
-	// e.g. (x) => edgeN(edgeN-1(...edge1(x)))
-	return (x) => x
+// compose a single Converter<F,T> out of the primitive edges
+export function composeConverters<
+	F extends keyof ColorSpaceMap,
+	T extends keyof ColorSpaceMap,
+>(graph: Graph, path: [F, ...(keyof ColorSpaceMap)[], T]): Converter<F, T> {
+	return ((input: ColorSpaceMap[F]) => {
+		let cur: unknown = input
+		for (let i = 0; i + 1 < path.length; i++) {
+			const a = path[i] as F
+			const b = path[i + 1] as T
+			// we know graph[a]![b] is Converter<F,T>
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const fn = graph[a]![b]!
+			cur = fn(cur as ColorSpaceMap[typeof a])
+		}
+		return cur as ColorSpaceMap[T]
+	}) as Converter<F, T>
 }
 
 // Factory: given *one* graph, produce its `convert` function
@@ -57,10 +64,11 @@ export function createConvert(graph: Graph) {
 		F extends keyof ColorSpaceMap,
 		T extends keyof ColorSpaceMap,
 	>(from: F, to: T, input: ColorSpaceMap[F]): ColorSpaceMap[T] {
-		const path = findPath(graph, from, to)
+		// TS can’t infer the tuple-ness of findPath’s result,
+		// so we assert it to [F,...,T]
+		const path = findPath(graph, from, to) as [F, ...(keyof ColorSpaceMap)[], T]
 		const fn = composeConverters(graph, path)
-		// cast is safe because fn was built from correct F→T edges
-		return fn(input) as ColorSpaceMap[T]
+		return fn(input)
 	}
 }
 
@@ -202,7 +210,11 @@ function detectCssFunction(input: string): CssFunctionName {
 }
 
 // 9) The end‑to‑end API
-export function convertCss(inputCss: string, to: CssFunctionName): string {
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
+export function convertCss<T extends CssFunctionName>(
+	inputCss: string,
+	to: T,
+): string {
 	// parse → { space: 'hex'|'rgb'|…, data: <typed> }
 	const fnName = detectCssFunction(inputCss)
 	const parsed = parseMap[fnName](inputCss)
