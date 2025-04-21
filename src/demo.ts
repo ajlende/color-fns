@@ -135,10 +135,24 @@ export const convertWeb: <
 // import type { Converter } from "./convert"
 // import type { ColorSpaceMap } from "../colorSpaces"
 
-// 1) Which CSS functions we support at runtime:
-export type CssFunctionName = "hex" | "rgb" | "hsl" | "hwb"
+// 1) Brand definitions, one per CSS syntax
+export type HexCssString = `#${string}` & { readonly __brand: "hex" }
+export type RgbCssString = `rgb(${string})` & { readonly __brand: "rgb" }
+export type HslCssString = `hsl(${string})` & { readonly __brand: "hsl" }
+export type HwbCssString = `hwb(${string})` & { readonly __brand: "hwb" }
 
-// 2) Map each CSS function to its internal color‐space key
+// 3) Map each function name to its branded input/output string
+export interface CssStringMap {
+	hex: HexCssString
+	rgb: RgbCssString
+	hsl: HslCssString
+	hwb: HwbCssString
+}
+
+// 4) Supported CSS keys
+export type CssFunctionName = keyof CssStringMap
+
+// 5) Map from CSS key → internal color‑space
 export const cssToSpace = {
 	hex: "sRGB",
 	rgb: "sRGB",
@@ -147,86 +161,111 @@ export const cssToSpace = {
 } as const
 type CssToSpace = typeof cssToSpace
 
-// 3) ParsedCssColor bundles the function name + typed payload
+// 6) Per‑syntax detectors (each lives in its own module if you like)
+export type DetectFn<S extends keyof CssStringMap> = (
+	s: unknown,
+) => s is CssStringMap[S]
+
+export const detectHex: DetectFn<"hex"> = (s): s is CssStringMap["hex"] =>
+	typeof s === "string" && s.startsWith("#")
+export const detectRgb: DetectFn<"rgb"> = (s): s is CssStringMap["rgb"] =>
+	typeof s === "string" && s.startsWith("rgb(")
+export const detectHsl: DetectFn<"hsl"> = (s): s is CssStringMap["hsl"] =>
+	typeof s === "string" && s.startsWith("hsl(")
+export const detectHwb: DetectFn<"hwb"> = (s): s is CssStringMap["hwb"] =>
+	typeof s === "string" && s.startsWith("hwb(")
+
+// 7) Build the detectMap so each branch can be tree‑shaken
+export const detectMap: {
+	[K in CssFunctionName]: DetectFn<K>
+} = {
+	hex: detectHex,
+	rgb: detectRgb,
+	hsl: detectHsl,
+	hwb: detectHwb,
+}
+
+// 8) Parsers still accept `string` and produce a typed payload
+//    (we could require branded input, but we detect+cast below instead)
 export interface ParsedCssColor<S extends CssFunctionName> {
 	space: S
 	data: ColorSpaceMap[CssToSpace[S]]
 }
+export type ParseFn<S extends CssFunctionName> = (
+	input: string,
+) => ParsedCssColor<S>
 
-// 4) Parser signature
-type ParseFn<S extends CssFunctionName> = (input: string) => ParsedCssColor<S>
-
-// 5) Serializers go back to CSS text
-type SerializeFn<S extends CssFunctionName> = (
-	data: ColorSpaceMap[CssToSpace[S]],
-) => string
-
-// 6) Implement stubs for each parser/serializer
-const parseHex: ParseFn<"hex"> = (_) => ({
+// stub parsers
+export const parseHex: ParseFn<"hex"> = (_) => ({
 	space: "hex",
-	data: { r: 1, g: 0, b: 0.6 }, // stub: #f09 → [1,0,0.6]
+	data: { r: 1, g: 0, b: 0.6 }, // stub
 })
-const parseRgb: ParseFn<"rgb"> = (_) => ({
+export const parseRgb: ParseFn<"rgb"> = (_) => ({
 	space: "rgb",
-	data: { r: 0, g: 0, b: 0 },
+	data: { r: 0, g: 0, b: 0 }, // stub
 })
-const parseHsl: ParseFn<"hsl"> = (_) => ({
+export const parseHsl: ParseFn<"hsl"> = (_) => ({
 	space: "hsl",
-	data: { h: 0, s: 0, l: 0 },
+	data: { h: 0, s: 0, l: 0 }, // stub
 })
-const parseHwb: ParseFn<"hwb"> = (_) => ({
+export const parseHwb: ParseFn<"hwb"> = (_) => ({
 	space: "hwb",
-	data: { h: 0, w: 0, b: 0 },
+	data: { h: 0, w: 0, b: 0 }, // stub
 })
 
-const serializeHex: SerializeFn<"hex"> = (_) => "#000"
-const serializeRgb: SerializeFn<"rgb"> = (_) => "rgb(0 0 0)"
-const serializeHsl: SerializeFn<"hsl"> = (_) => "hsl(0deg 0% 0%)"
-const serializeHwb: SerializeFn<"hwb"> = (_) => "hwb(0deg 0% 0%)"
-
-// 7) Dispatch tables, each fn lives separately so unused ones DCE away
-const parseMap: { [K in CssFunctionName]: ParseFn<K> } = {
+export const parseMap: {
+	[K in CssFunctionName]: ParseFn<K>
+} = {
 	hex: parseHex,
 	rgb: parseRgb,
 	hsl: parseHsl,
 	hwb: parseHwb,
 }
-const serializeMap: { [K in CssFunctionName]: SerializeFn<K> } = {
+
+// 9) Serializers produce *branded* CSS strings
+export type SerializeFn<S extends CssFunctionName> = (
+	data: ColorSpaceMap[CssToSpace[S]],
+) => CssStringMap[S]
+
+export const serializeHex: SerializeFn<"hex"> = (_) => "#000" as HexCssString
+export const serializeRgb: SerializeFn<"rgb"> = (_) =>
+	"rgb(0 0 0)" as RgbCssString
+export const serializeHsl: SerializeFn<"hsl"> = (_) =>
+	"hsl(0deg 0% 0%)" as HslCssString
+export const serializeHwb: SerializeFn<"hwb"> = (_) =>
+	"hwb(0deg 0% 0%)" as HwbCssString
+
+export const serializeMap: {
+	[K in CssFunctionName]: SerializeFn<K>
+} = {
 	hex: serializeHex,
 	rgb: serializeRgb,
 	hsl: serializeHsl,
 	hwb: serializeHwb,
 }
 
-// 8) Tiny fn to detect which CSS function (or hex) was used.
-//    Here just a stub; real one would use regexes.
-function detectCssFunction(input: string): CssFunctionName {
-	if (input.startsWith("#")) return "hex"
-	if (input.startsWith("hwb(")) return "hwb"
-	if (input.startsWith("hsl(")) return "hsl"
-	if (input.startsWith("rgb(")) return "rgb"
-	// default
-	return "rgb"
-}
+// 10) The type‑safe, end‑to‑end CSS converter
+export function convertCss<To extends CssFunctionName>(
+	inputCss: unknown,
+	to: To,
+): CssStringMap[To] {
+	// a) pick the correct syntax via type‑guards
+	const fnName = (Object.keys(detectMap) as CssFunctionName[]).find(
+		(k): k is CssFunctionName => detectMap[k](inputCss),
+	)
+	if (!fnName) {
+		throw new Error(`Unsupported CSS color format: ${String(inputCss)}`)
+	}
 
-// 9) The end‑to‑end API
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
-export function convertCss<T extends CssFunctionName>(
-	inputCss: string,
-	to: T,
-): string {
-	// parse → { space: 'hex'|'rgb'|…, data: <typed> }
-	const fnName = detectCssFunction(inputCss)
-	const parsed = parseMap[fnName](inputCss)
+	// b) parse into our internal representation
+	const parsed = parseMap[fnName](inputCss as string)
 
-	// map CSS fn → internal space keys
-	const spaceFrom = cssToSpace[parsed.space]
-	const spaceTo = cssToSpace[to]
+	// c) convert between color‑spaces
+	const fromSpace = cssToSpace[parsed.space]
+	const toSpace = cssToSpace[to]
+	const converted = convertWeb(fromSpace, toSpace, parsed.data)
 
-	// convert payload
-	const converted = convertWeb(spaceFrom, spaceTo, parsed.data)
-
-	// serialize back to CSS
+	// d) serialize back to a *branded* CSS string
 	return serializeMap[to](converted)
 }
 
