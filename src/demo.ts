@@ -48,8 +48,8 @@ export type ProPhoto = ColorSpace<"ProPhoto">
 export type XYZ = XYZ_D65
 
 export type Converter<F extends ColorSpaceKey, T extends ColorSpaceKey> = (
-	input: ColorData<F>,
-) => ColorData<T>
+	input: ColorSpace<F>,
+) => ColorSpace<T>
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed converters
@@ -156,9 +156,7 @@ export function findPath<K extends ColorSpaceKey>(
 		const path = queue.shift()
 		if (!path) continue
 
-		const last = path[path.length - 1]
-		const neighbors = Object.keys(graph[last]) as K[]
-		for (const next of neighbors) {
+		for (const next of Object.keys(graph[path[path.length - 1]]) as K[]) {
 			if (visited.has(next)) continue
 			visited.add(next)
 
@@ -176,16 +174,15 @@ export function composeConverters<
 	F extends K,
 	T extends K,
 >(graph: Graph<K>, path: K[]): Converter<F, T> {
-	return (input: ColorData<F>): ColorData<T> => {
-		let result: ColorData<K> = input
+	return (input: ColorSpace<F>): ColorSpace<T> => {
+		let result: ColorSpace<K> = input
 		for (let i = 0; i + 1 < path.length; i++) {
 			const a = path[i]
 			const b = path[i + 1]
-			// FIXME: Make this type safe from the inputs
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion
-			result = graph[a][b]!(result as any)
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			result = graph[a][b]!(result)
 		}
-		return result as ColorData<T>
+		return result as ColorSpace<T>
 	}
 }
 
@@ -193,15 +190,18 @@ export type GraphConvert<K extends ColorSpaceKey> = <F extends K, T extends K>(
 	from: F,
 	to: T,
 	input: ColorData<F>,
-) => ColorData<T>
-
+) => ColorSpace<T>
 export function createConvert<K extends ColorSpaceKey>(
 	graph: Graph<K>,
 ): GraphConvert<K> {
-	return <F extends K, T extends K>(from: F, to: T, input: ColorData<F>) => {
+	return <F extends K, T extends K>(
+		from: F,
+		to: T,
+		input: ColorData<F>,
+	): ColorSpace<T> => {
 		const path = findPath(graph, from, to)
 		const fn = composeConverters<K, F, T>(graph, path)
-		return fn(input)
+		return fn(input as ColorSpace<F>)
 	}
 }
 
@@ -446,7 +446,7 @@ export function convertCss<T extends CssStringKey>(
 			const fromSpace = def.space
 			const toSpace = cssToSpace[to]
 			const converted = convertWeb(fromSpace, toSpace, parsed)
-			return cssDefs[to].serialize(converted as ColorSpace<typeof toSpace>)
+			return cssDefs[to].serialize(converted)
 		}
 	}
 	throw new Error(`Unsupported CSS color format: ${String(inputCss)}`)
@@ -457,11 +457,7 @@ export function convertCss<T extends CssStringKey>(
 // -------------------
 
 /* eslint-disable no-console */
-const pipeOut = pipe(
-	hwbToHsv,
-	hsvToSrgb,
-	srgbToHsl,
-)({ h: 1, w: 0, b: 0.6 } as HWB)
+const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
 const outD50 = convertD50("Jzazbz", "Lab_D50", { jz: 0, az: 0, bz: 0 })
