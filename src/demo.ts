@@ -147,9 +147,7 @@ export function findPath<K extends ColorSpaceKey>(
 	from: K,
 	to: K,
 ): K[] {
-	if (from === to) {
-		return [from]
-	}
+	if (from === to) return [from]
 
 	const queue: K[][] = [[from]]
 	const visited = new Set<K>([from])
@@ -157,15 +155,15 @@ export function findPath<K extends ColorSpaceKey>(
 	while (queue.length > 0) {
 		const path = queue.shift()
 		if (!path) continue
+
 		const last = path[path.length - 1]
-		const neighbors = graph[last]
-		for (const next of Object.keys(neighbors) as K[]) {
+		const neighbors = Object.keys(graph[last]) as K[]
+		for (const next of neighbors) {
 			if (visited.has(next)) continue
-			const newPath = path.concat(next)
 			visited.add(next)
-			if (next === to) {
-				return newPath
-			}
+
+			const newPath = [...path, next]
+			if (next === to) return newPath
 			queue.push(newPath)
 		}
 	}
