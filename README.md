@@ -1,19 +1,24 @@
-# color-fns
+# Color Functions
 
-**⚠︎⚠︎⚠︎This project is still in early development. Expect breaking changes frequently at this stage.⚠︎⚠︎⚠︎**
+✨ Convert and manipulate colors better than ever before. 🌈
 
-It's like [date-fns](https://date-fns.org) for colors.
+## Features
 
-- **Zero Dependencies**: No useless bloat. No additional code to audit.
-- **Modular**: Pick what you need. Supports tree-shaking.
-- **Immutable & Pure**: Makes your code easier to read and understand.
-- **TypeScript**: Prevent runtime type-related errors.
+- **TypeScript:** Best in class auto-complete and safety.
+- **Efficient & Fast:** Bundle the absolute minimum code. Powered by graph theory.
+- **Accurate:** Doesn't gloss over color science. Doesn't clamp values.
+- **Extensible:** Bring your own custom-tailored functions.
+- **Zero Dependencies:** No useless bloat. No additional code to audit.
 
-```js
-import { convert, fromAny, toHex } from "color-fns"
+<!-- TODO: Add these features. -->
+<!-- - **CSS Support:** CSS Color Module Level 4. The newest one. -->
+<!-- - **Color Spaces:** Beyond CSS. -->
+<!-- - **Interoperable:** Adapt common color libraries. -->
 
-convert(fromAny, toHex, [0.2, 0.4, 0.6, 1])
-//=> "#336699"
+## Installation
+
+```sh
+npm install colorfn
 ```
 
 ## License

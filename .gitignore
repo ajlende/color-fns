@@ -5,24 +5,14 @@ node_modules
 *.tgz
 
 # Build artifacts
-build
-cjs
-esm
-types
-
-# nyc test coverage
-.nyc_output
+dist
 coverage
+docs/api
+docs/api.json
 
 # TypeScript cache
 *.tsbuildinfo
 
-# Eslint cache
-.eslintcache
-
 # Editors
 .idea
 .vscode
-
-# Temp folder
-.exclude
