@@ -118,26 +118,16 @@ const proPhotoToLinearProPhoto: Converter<"ProPhoto", "Linear_ProPhoto"> = (
 ) => ({ r: 0, g: 0, b: 0 }) as Linear_ProPhoto
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-type Head<T extends unknown[]> = T extends [infer H, ...unknown[]] ? H : never
-type Last<T extends unknown[]> = T extends [...unknown[], infer L] ? L : never
-
-type ConverterInput<C> = C extends Converter<infer F, ColorSpaceKey> ? F : never
-type ConverterOutput<C> = C extends Converter<ColorSpaceKey, infer T> ? T : never
-
-export function pipe<
-	Fns extends [
-		Converter<ColorSpaceKey, ColorSpaceKey>,
-		...Converter<ColorSpaceKey, ColorSpaceKey>[],
-	],
->(
-	...fns: Fns
-): Converter<ConverterInput<Head<Fns>>, ConverterOutput<Last<Fns>>> {
-	return (input) => {
+function pipe<K extends ColorSpaceKey, F extends K, T extends K>(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	...fns: [Converter<F, any>, ...Converter<any, any>[], Converter<any, T>]
+): Converter<F, T> {
+	return (input: ColorSpace<F>): ColorSpace<T> => {
 		let acc: unknown = input
 		for (const fn of fns) {
-			acc = fn(acc as Parameters<typeof fn>[0])
+			acc = fn(acc as ColorSpace<F>)
 		}
-		return acc as ColorSpace<ConverterOutput<Last<Fns>>>
+		return acc as ColorSpace<T>
 	}
 }
 
@@ -199,16 +189,10 @@ export type GraphConvert<K extends ColorSpaceKey> = <F extends K, T extends K>(
 function createConvert<K extends ColorSpaceKey>(
 	graph: Graph<K>,
 ): GraphConvert<K> {
-	const cache = new Map<string, Converter<K, K>>()
-	return (from, to, input) => {
-		const key = `${from}→${to}`
-		let fn = cache.get(key)
-		if (!fn) {
-			const path = findPath(graph, from, to)
-			fn = composeConverters(graph, path)
-			cache.set(key, fn)
-		}
-		return fn(input)
+	return <F extends K, T extends K>(from: F, to: T, input: ColorData<F>) => {
+		const path = findPath(graph, from, to)
+		const fn = composeConverters<K, F, T>(graph, path)
+		return fn(input as ColorSpace<F>)
 	}
 }
 
@@ -467,11 +451,7 @@ export function convertCss<T extends CssStringKey>(
 // Argument of type 'Converter<"HWB", "HSV">' is not assignable to parameter of type 'Converter<keyof ColorDataMap, keyof ColorDataMap>'.
 //   Type 'keyof ColorDataMap' is not assignable to type '"HWB"'.
 //     Type '"Linear_sRGB"' is not assignable to type '"HWB"'. ts(2345)
-const pipeOut = pipe(
-	hwbToHsv,
-	hsvToSrgb,
-	srgbToHsl,
-)({ h: 1, w: 0, b: 0.6 } as HWB)
+const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
 const outD50 = convertD50("Jzazbz", "Lab_D50", { jz: 0, az: 0, bz: 0 })
