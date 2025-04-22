@@ -10,7 +10,7 @@ type Brand<B extends string, T> = T & {
 // Color Spaces
 // -------------------
 
-export interface ColorDataMap {
+interface ColorDataMap {
 	Linear_sRGB: { r: number; g: number; b: number }
 	sRGB: { r: number; g: number; b: number }
 	HSL: { h: number; s: number; l: number }
@@ -28,6 +28,7 @@ export interface ColorDataMap {
 
 export type ColorSpaceKey = keyof ColorDataMap
 export type ColorSpace<K extends ColorSpaceKey> = Brand<K, ColorDataMap[K]>
+export type ColorData<K extends ColorSpaceKey> = ColorDataMap[K]
 
 export type Linear_sRGB = ColorSpace<"Linear_sRGB">
 export type sRGB = ColorSpace<"sRGB">
@@ -46,8 +47,8 @@ export type ProPhoto = ColorSpace<"ProPhoto">
 export type XYZ = XYZ_D65
 
 export type Converter<F extends ColorSpaceKey, T extends ColorSpaceKey> = (
-	input: ColorDataMap[F],
-) => ColorSpace<T>
+	input: ColorData<F>,
+) => ColorData<T>
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed converters
@@ -160,29 +161,29 @@ export function composeConverters<
 	F extends K,
 	T extends K,
 >(graph: Graph<K>, path: K[]): Converter<F, T> {
-	return (input: ColorDataMap[F]) => {
-		let result: ColorDataMap[K] = input
+	return (input: ColorData<F>) => {
+		let result: ColorData<K> = input
 		for (let i = 0; i + 1 < path.length; i++) {
 			const a = path[i]
 			const b = path[i + 1]
 			// HACK: Casting to unknown to avoid type errors
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			result = graph[a][b]!(result) as unknown as ColorDataMap[K]
+			result = graph[a][b]!(result) as unknown as ColorData<K>
 		}
-		return result as ColorSpace<T>
+		return result as ColorData<T>
 	}
 }
 
 export type GraphConvert<K extends ColorSpaceKey> = <F extends K, T extends K>(
 	from: F,
 	to: T,
-	input: ColorDataMap[F],
-) => ColorSpace<T>
+	input: ColorData<F>,
+) => ColorData<T>
 
 export function createConvert<K extends ColorSpaceKey>(
 	graph: Graph<K>,
 ): GraphConvert<K> {
-	return <F extends K, T extends K>(from: F, to: T, input: ColorDataMap[F]) => {
+	return <F extends K, T extends K>(from: F, to: T, input: ColorData<F>) => {
 		const path = findPath(graph, from, to)
 		const fn = composeConverters<K, F, T>(graph, path)
 		return fn(input)
@@ -313,7 +314,7 @@ export const convert: GraphConvert<ColorSpaceKey> = createConvert(graph)
 // String Formats
 // -------------------
 
-export interface CssStringMap {
+interface CssStringMap {
 	hex: `#${string}`
 	rgb: `rgb(${string})`
 	hsl: `hsl(${string})`
