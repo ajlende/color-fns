@@ -118,24 +118,26 @@ const proPhotoToLinearProPhoto: Converter<"ProPhoto", "Linear_ProPhoto"> = (
 ) => ({ r: 0, g: 0, b: 0 }) as Linear_ProPhoto
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-export function pipe<A extends ColorSpaceKey, Z extends ColorSpaceKey>(
-	...fns: [
-		Converter<A, ColorSpaceKey>,
+type Head<T extends unknown[]> = T extends [infer H, ...unknown[]] ? H : never
+type Last<T extends unknown[]> = T extends [...unknown[], infer L] ? L : never
+
+type ConverterInput<C> = C extends Converter<infer F, never> ? F : never
+type ConverterOutput<C> = C extends Converter<never, infer T> ? T : never
+
+export function pipe<
+	Fns extends [
+		Converter<ColorSpaceKey, ColorSpaceKey>,
 		...Converter<ColorSpaceKey, ColorSpaceKey>[],
-		Converter<ColorSpaceKey, Z>,
-	]
-): Converter<A, Z> {
-	return (input: ColorData<A>) => {
+	],
+>(
+	...fns: Fns
+): Converter<ConverterInput<Head<Fns>>, ConverterOutput<Last<Fns>>> {
+	return (input) => {
 		let acc: unknown = input
 		for (const fn of fns) {
-			// FIXME: Error
-			// Argument of type 'ColorSpace<A> | ColorSpace<keyof ColorDataMap>' is not assignable to parameter of type '(ColorDataMap[A] & { readonly __brand: A; } & ColorSpace<keyof ColorDataMap>) & ColorSpace<keyof ColorDataMap>'.
-			//   Type 'ColorSpace<A>' is not assignable to type '(ColorDataMap[A] & { readonly __brand: A; } & ColorSpace<keyof ColorDataMap>) & ColorSpace<keyof ColorDataMap>'.
-			//     Type 'ColorSpace<A>' is not assignable to type 'ColorDataMap[A] & { readonly __brand: A; } & { r: number; g: number; b: number; } & { readonly __brand: keyof ColorDataMap; } & { r: number; g: number; b: number; }'.
-			//       Type 'ColorSpace<A>' is not assignable to type '{ r: number; g: number; b: number; }'.
 			acc = fn(acc as Parameters<typeof fn>[0])
 		}
-		return acc as ColorSpace<Z>
+		return acc as ColorSpace<ConverterOutput<Last<Fns>>>
 	}
 }
 
