@@ -122,9 +122,7 @@ export function pipe<K extends ColorSpaceKey, F extends K, T extends K>(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	...fns: [Converter<F, any>, ...Converter<any, any>[], Converter<any, T>]
 ) {
-	return <K extends ColorSpaceKey, F extends K, T extends K>(
-		input: ColorData<F>,
-	): ColorSpace<T> => {
+	return (input: ColorData<F>): ColorSpace<T> => {
 		let acc: unknown = input
 		for (const fn of fns) {
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
