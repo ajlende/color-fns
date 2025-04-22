@@ -30,6 +30,7 @@ export type ColorSpaceKey = keyof ColorDataMap
 export type ColorSpace<K extends ColorSpaceKey> = Brand<K, ColorDataMap[K]>
 export type ColorData<K extends ColorSpaceKey> = ColorDataMap[K]
 
+// Convenience types for consumers
 export type Linear_sRGB = ColorSpace<"Linear_sRGB">
 export type sRGB = ColorSpace<"sRGB">
 export type HSL = ColorSpace<"HSL">
@@ -117,12 +118,28 @@ const proPhotoToLinearProPhoto: Converter<"ProPhoto", "Linear_ProPhoto"> = (
 ) => ({ r: 0, g: 0, b: 0 }) as Linear_ProPhoto
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-function pipe<T>(...fns: ((input: T) => T)[]): (input: T) => T {
-	return (input: T) => fns.reduce((acc, fn) => fn(acc), input)
+function pipe<A, B>(fn1: (input: A) => B): (input: A) => B
+function pipe<A, B, C>(
+	fn1: (input: A) => B,
+	fn2: (input: B) => C,
+): (input: A) => C
+function pipe<A, B, C, D>(
+	fn1: (input: A) => B,
+	fn2: (input: B) => C,
+	fn3: (input: C) => D,
+): (input: A) => D
+// Disable reason: This is a generic utility function for chaining functions
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function pipe(...fns: ((input: any) => any)[]): (input: any) => any {
+	// Disable reason: This is a generic utility function for chaining functions
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+	return (input) => fns.reduce((acc, fn) => fn(acc), input)
 }
 
 export type Graph<K extends ColorSpaceKey> = {
-	[F in K]: Partial<{ [T in K]: Converter<F, T> }>
+	[F in K]: {
+		[T in K]?: Converter<F, T>
+	}
 }
 
 export function findPath<K extends ColorSpaceKey>(
@@ -161,14 +178,14 @@ export function composeConverters<
 	F extends K,
 	T extends K,
 >(graph: Graph<K>, path: K[]): Converter<F, T> {
-	return (input: ColorData<F>) => {
+	return (input: ColorData<F>): ColorData<T> => {
 		let result: ColorData<K> = input
 		for (let i = 0; i + 1 < path.length; i++) {
 			const a = path[i]
 			const b = path[i + 1]
-			// HACK: Casting to unknown to avoid type errors
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			result = graph[a][b]!(result) as unknown as ColorData<K>
+			// FIXME: Make this type safe from the inputs
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion
+			result = graph[a][b]!(result as any)
 		}
 		return result as ColorData<T>
 	}
@@ -324,6 +341,7 @@ interface CssStringMap {
 export type CssStringKey = keyof CssStringMap
 export type CssString<K extends CssStringKey> = Brand<K, CssStringMap[K]>
 
+// Convenience types for consumers
 export type CssHexString = CssString<"hex">
 export type CssRgbString = CssString<"rgb">
 export type CssHslString = CssString<"hsl">
@@ -430,11 +448,7 @@ export function convertCss<T extends CssStringKey>(
 			const fromSpace = def.space
 			const toSpace = cssToSpace[to]
 			const converted = convertWeb(fromSpace, toSpace, parsed)
-			// TODO: Fix this
-			// Argument of type '({ r: number; g: number; b: number; } | { h: number; s: number; l: number; } | { h: number; w: number; b: number; }) & { readonly __brand: { readonly hex: "sRGB"; readonly rgb: "sRGB"; readonly hsl: "HSL"; readonly hwb: "HWB"; }[T]; }' is not assignable to parameter of type 'never'.
-			//   The intersection '{ r: number; g: number; b: number; } & { readonly __brand: "sRGB"; } & { h: number; s: number; l: number; } & { readonly __brand: "HSL"; } & { h: number; w: number; b: number; } & { readonly __brand: "HWB"; }' was reduced to 'never' because property '__brand' has conflicting types in some constituents.
-			//     Type '{ r: number; g: number; b: number; } & { readonly __brand: { readonly hex: "sRGB"; readonly rgb: "sRGB"; readonly hsl: "HSL"; readonly hwb: "HWB"; }[T]; }' is not assignable to type 'never'.ts(2345)
-			return def.serialize(converted) as CssString<T>
+			return cssDefs[to].serialize(converted as ColorSpace<typeof toSpace>)
 		}
 	}
 	throw new Error(`Unsupported CSS color format: ${String(inputCss)}`)
@@ -445,10 +459,11 @@ export function convertCss<T extends CssStringKey>(
 // -------------------
 
 /* eslint-disable no-console */
-// TODO: Fix this
-// Argument of type 'Converter<"HWB", "HSV">' is not assignable to parameter of type '(input: { h: number; w: number; b: number; }) => { h: number; w: number; b: number; }'.
-//   Type 'ColorSpace<"HSV">' is missing the following properties from type '{ h: number; w: number; b: number; }': w, bts(2345)
-const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
+const pipeOut = pipe(
+	hwbToHsv,
+	hsvToSrgb,
+	srgbToHsl,
+)({ h: 1, w: 0, b: 0.6 } as HWB)
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
 const outD50 = convertD50("Jzazbz", "Lab_D50", { jz: 0, az: 0, bz: 0 })
