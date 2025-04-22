@@ -118,14 +118,17 @@ const proPhotoToLinearProPhoto: Converter<"ProPhoto", "Linear_ProPhoto"> = (
 ) => ({ r: 0, g: 0, b: 0 }) as Linear_ProPhoto
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-function pipe<K extends ColorSpaceKey, F extends K, T extends K>(
+export function pipe<K extends ColorSpaceKey, F extends K, T extends K>(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	...fns: [Converter<F, any>, ...Converter<any, any>[], Converter<any, T>]
-): Converter<F, T> {
-	return (input: ColorSpace<F>): ColorSpace<T> => {
+) {
+	return <K extends ColorSpaceKey, F extends K, T extends K>(
+		input: ColorData<F>,
+	): ColorSpace<T> => {
 		let acc: unknown = input
 		for (const fn of fns) {
-			acc = fn(acc as ColorSpace<F>)
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
+			acc = fn(acc as any)
 		}
 		return acc as ColorSpace<T>
 	}
@@ -448,9 +451,6 @@ export function convertCss<T extends CssStringKey>(
 // -------------------
 
 /* eslint-disable no-console */
-// Argument of type 'Converter<"HWB", "HSV">' is not assignable to parameter of type 'Converter<keyof ColorDataMap, keyof ColorDataMap>'.
-//   Type 'keyof ColorDataMap' is not assignable to type '"HWB"'.
-//     Type '"Linear_sRGB"' is not assignable to type '"HWB"'. ts(2345)
 const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
