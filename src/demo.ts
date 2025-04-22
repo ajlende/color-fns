@@ -124,9 +124,9 @@ function pipe<T>(...fns: ((input: T) => T)[]): (input: T) => T {
 	return (input: T) => fns.reduce((acc, fn) => fn(acc), input)
 }
 
-export type Graph<K extends ColorSpaceKey> = Partial<{
+export type Graph<K extends ColorSpaceKey> = {
 	[F in K]: Partial<{ [T in K]: Converter<F, T> }>
-}>
+}
 
 export function findPath<K extends ColorSpaceKey>(
 	graph: Graph<K>,
@@ -145,7 +145,6 @@ export function findPath<K extends ColorSpaceKey>(
 		if (!path) continue
 		const last = path[path.length - 1]
 		const neighbors = graph[last]
-		if (!neighbors) continue
 		for (const next of Object.keys(neighbors) as K[]) {
 			if (visited.has(next)) continue
 			const newPath = path.concat(next)
@@ -172,7 +171,7 @@ export function composeConverters<
 			const b = path[i + 1]
 			// HACK: Casting to unknown to avoid type errors
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			result = graph[a]![b]!(result) as unknown as ColorDataMap[K]
+			result = graph[a][b]!(result) as unknown as ColorDataMap[K]
 		}
 		return result as ColorSpaceMap[T]
 	}
@@ -195,9 +194,8 @@ export function createConvert<K extends ColorSpaceKey>(
 }
 
 // @lib/colors/dynamic/web
-export const convertWeb: GraphConvert<
-	"Linear_sRGB" | "sRGB" | "HSL" | "HSV" | "HWB"
-> = createConvert({
+export type WebColorSpaceKey = "Linear_sRGB" | "sRGB" | "HSL" | "HSV" | "HWB"
+const webGraph: Graph<WebColorSpaceKey> = {
 	Linear_sRGB: {
 		sRGB: linearSrgbToSrgb,
 	},
@@ -216,10 +214,12 @@ export const convertWeb: GraphConvert<
 	HWB: {
 		HSV: hwbToHsv,
 	},
-})
+}
+export const convertWeb: GraphConvert<WebColorSpaceKey> =
+	createConvert(webGraph)
 
 // @lib/colors/dynamic/d50
-export const convertD50: GraphConvert<
+export type D50ColorSpaceKey =
 	| "XYZ_D50"
 	| "Jzazbz"
 	| "JzCzHz"
@@ -227,7 +227,7 @@ export const convertD50: GraphConvert<
 	| "LCH"
 	| "Linear_ProPhoto"
 	| "ProPhoto"
-> = createConvert({
+const d50Graph: Graph<D50ColorSpaceKey> = {
 	XYZ_D50: {
 		Jzazbz: xyzD50ToJzazbz,
 		Lab_D50: xyzD50ToLabD50,
@@ -254,24 +254,12 @@ export const convertD50: GraphConvert<
 	ProPhoto: {
 		Linear_ProPhoto: proPhotoToLinearProPhoto,
 	},
-})
+}
+export const convertD50: GraphConvert<D50ColorSpaceKey> =
+	createConvert(d50Graph)
 
 // @lib/colors/dynamic
-export const convert: GraphConvert<
-	| "Linear_sRGB"
-	| "sRGB"
-	| "HSL"
-	| "HSV"
-	| "HWB"
-	| "XYZ_D65"
-	| "XYZ_D50"
-	| "Jzazbz"
-	| "JzCzHz"
-	| "Lab_D50"
-	| "LCH"
-	| "Linear_ProPhoto"
-	| "ProPhoto"
-> = createConvert({
+const graph: Graph<ColorSpaceKey> = {
 	XYZ_D65: {
 		XYZ_D50: xyzD65ToXyzD50,
 		Linear_sRGB: xyzD65ToLinearSrgb,
@@ -322,7 +310,8 @@ export const convert: GraphConvert<
 	HWB: {
 		HSV: hwbToHsv,
 	},
-})
+}
+export const convert: GraphConvert<ColorSpaceKey> = createConvert(graph)
 
 // -------------------
 // String Formats
@@ -448,6 +437,10 @@ export function convertCss<T extends CssStringKey>(
 			const fromSpace = def.space
 			const toSpace = cssToSpace[to]
 			const converted = convertWeb(fromSpace, toSpace, parsed)
+			// TODO: Fix this
+			// Argument of type '({ r: number; g: number; b: number; } | { h: number; s: number; l: number; } | { h: number; w: number; b: number; }) & { readonly __brand: { readonly hex: "sRGB"; readonly rgb: "sRGB"; readonly hsl: "HSL"; readonly hwb: "HWB"; }[T]; }' is not assignable to parameter of type 'never'.
+			//   The intersection '{ r: number; g: number; b: number; } & { readonly __brand: "sRGB"; } & { h: number; s: number; l: number; } & { readonly __brand: "HSL"; } & { h: number; w: number; b: number; } & { readonly __brand: "HWB"; }' was reduced to 'never' because property '__brand' has conflicting types in some constituents.
+			//     Type '{ r: number; g: number; b: number; } & { readonly __brand: { readonly hex: "sRGB"; readonly rgb: "sRGB"; readonly hsl: "HSL"; readonly hwb: "HWB"; }[T]; }' is not assignable to type 'never'.
 			return def.serialize(converted) as CssStringBrandMap[T]
 		}
 	}
@@ -459,6 +452,9 @@ export function convertCss<T extends CssStringKey>(
 // -------------------
 
 /* eslint-disable no-console */
+// TODO: Fix this
+// Argument of type 'Converter<"HWB", "HSV">' is not assignable to parameter of type '(input: { h: number; w: number; b: number; }) => { h: number; w: number; b: number; }'.
+//   Type 'Brand<"HSV", { h: number; s: number; v: number; }>' is missing the following properties from type '{ h: number; w: number; b: number; }': w, b
 const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
