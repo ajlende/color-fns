@@ -118,22 +118,25 @@ const proPhotoToLinearProPhoto: Converter<"ProPhoto", "Linear_ProPhoto"> = (
 ) => ({ r: 0, g: 0, b: 0 }) as Linear_ProPhoto
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-function pipe<A, B>(fn1: (input: A) => B): (input: A) => B
-function pipe<A, B, C>(
-	fn1: (input: A) => B,
-	fn2: (input: B) => C,
-): (input: A) => C
-function pipe<A, B, C, D>(
-	fn1: (input: A) => B,
-	fn2: (input: B) => C,
-	fn3: (input: C) => D,
-): (input: A) => D
-// Disable reason: This is a generic utility function for chaining functions
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function pipe(...fns: ((input: any) => any)[]): (input: any) => any {
-	// Disable reason: This is a generic utility function for chaining functions
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-	return (input) => fns.reduce((acc, fn) => fn(acc), input)
+type FirstIn<Fns extends Converter<ColorSpaceKey, ColorSpaceKey>[]> =
+	Fns extends [Converter<infer A, ColorSpaceKey>, ...unknown[]] ? A : never
+
+type LastOut<Fns extends Converter<ColorSpaceKey, ColorSpaceKey>[]> =
+	Fns extends [...unknown[], Converter<ColorSpaceKey, infer Z>] ? Z : never
+
+export function pipe<
+	Fns extends [
+		Converter<ColorSpaceKey, ColorSpaceKey>,
+		...Converter<ColorSpaceKey, ColorSpaceKey>[],
+	],
+>(...fns: Fns): Converter<FirstIn<Fns>, LastOut<Fns>> {
+	return ((input: ColorData<FirstIn<Fns>>) =>
+		fns.reduce(
+			// Argument of type 'unknown' is not assignable to parameter of type 'ColorSpace<keyof ColorDataMap>'.ts(2345)
+			(prev, fn) => fn(prev),
+			// Type 'unknown' does not satisfy the constraint 'keyof ColorDataMap'.ts(2344)
+			input as ColorData<unknown>,
+		)) as Converter<FirstIn<Fns>, LastOut<Fns>>
 }
 
 export type Graph<K extends ColorSpaceKey> = {
@@ -191,17 +194,19 @@ export type GraphConvert<K extends ColorSpaceKey> = <F extends K, T extends K>(
 	to: T,
 	input: ColorData<F>,
 ) => ColorSpace<T>
-export function createConvert<K extends ColorSpaceKey>(
+function createConvert<K extends ColorSpaceKey>(
 	graph: Graph<K>,
 ): GraphConvert<K> {
-	return <F extends K, T extends K>(
-		from: F,
-		to: T,
-		input: ColorData<F>,
-	): ColorSpace<T> => {
-		const path = findPath(graph, from, to)
-		const fn = composeConverters<K, F, T>(graph, path)
-		return fn(input as ColorSpace<F>)
+	const cache = new Map<string, Converter<K, K>>()
+	return (from, to, input) => {
+		const key = `${from}→${to}`
+		let fn = cache.get(key)
+		if (!fn) {
+			const path = findPath(graph, from, to)
+			fn = composeConverters(graph, path)
+			cache.set(key, fn)
+		}
+		return fn(input)
 	}
 }
 
