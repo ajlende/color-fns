@@ -26,32 +26,28 @@ export interface ColorDataMap {
 	ProPhoto: { r: number; g: number; b: number }
 }
 
-export type ColorSpaceMap = {
-	[K in keyof ColorDataMap]: Brand<K, ColorDataMap[K]>
-}
-
 export type ColorSpaceKey = keyof ColorDataMap
-export type ColorSpace = ColorSpaceMap[ColorSpaceKey]
+export type ColorSpace<K extends ColorSpaceKey> = Brand<K, ColorDataMap[K]>
 
-export type Linear_sRGB = ColorSpaceMap["Linear_sRGB"]
-export type sRGB = ColorSpaceMap["sRGB"]
-export type HSL = ColorSpaceMap["HSL"]
-export type HSV = ColorSpaceMap["HSV"]
-export type HWB = ColorSpaceMap["HWB"]
-export type XYZ_D65 = ColorSpaceMap["XYZ_D65"]
-export type XYZ_D50 = ColorSpaceMap["XYZ_D50"]
-export type Jzazbz = ColorSpaceMap["Jzazbz"]
-export type JzCzHz = ColorSpaceMap["JzCzHz"]
-export type Lab_D50 = ColorSpaceMap["Lab_D50"]
-export type LCH = ColorSpaceMap["LCH"]
-export type Linear_ProPhoto = ColorSpaceMap["Linear_ProPhoto"]
-export type ProPhoto = ColorSpaceMap["ProPhoto"]
+export type Linear_sRGB = ColorSpace<"Linear_sRGB">
+export type sRGB = ColorSpace<"sRGB">
+export type HSL = ColorSpace<"HSL">
+export type HSV = ColorSpace<"HSV">
+export type HWB = ColorSpace<"HWB">
+export type XYZ_D65 = ColorSpace<"XYZ_D65">
+export type XYZ_D50 = ColorSpace<"XYZ_D50">
+export type Jzazbz = ColorSpace<"Jzazbz">
+export type JzCzHz = ColorSpace<"JzCzHz">
+export type Lab_D50 = ColorSpace<"Lab_D50">
+export type LCH = ColorSpace<"LCH">
+export type Linear_ProPhoto = ColorSpace<"Linear_ProPhoto">
+export type ProPhoto = ColorSpace<"ProPhoto">
 
 export type XYZ = XYZ_D65
 
 export type Converter<F extends ColorSpaceKey, T extends ColorSpaceKey> = (
 	input: ColorDataMap[F],
-) => ColorSpaceMap[T]
+) => ColorSpace<T>
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed converters
@@ -173,7 +169,7 @@ export function composeConverters<
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			result = graph[a][b]!(result) as unknown as ColorDataMap[K]
 		}
-		return result as ColorSpaceMap[T]
+		return result as ColorSpace<T>
 	}
 }
 
@@ -181,7 +177,7 @@ export type GraphConvert<K extends ColorSpaceKey> = <F extends K, T extends K>(
 	from: F,
 	to: T,
 	input: ColorDataMap[F],
-) => ColorSpaceMap[T]
+) => ColorSpace<T>
 
 export function createConvert<K extends ColorSpaceKey>(
 	graph: Graph<K>,
@@ -324,17 +320,13 @@ export interface CssStringMap {
 	hwb: `hwb(${string})`
 }
 
-export type CssStringBrandMap = {
-	[K in keyof CssStringMap]: Brand<K, CssStringMap[K]>
-}
-
 export type CssStringKey = keyof CssStringMap
-export type CssString = CssStringBrandMap[CssStringKey]
+export type CssString<K extends CssStringKey> = Brand<K, CssStringMap[K]>
 
-export type CssHexString = CssStringBrandMap["hex"]
-export type CssRgbString = CssStringBrandMap["rgb"]
-export type CssHslString = CssStringBrandMap["hsl"]
-export type CssHwbString = CssStringBrandMap["hwb"]
+export type CssHexString = CssString<"hex">
+export type CssRgbString = CssString<"rgb">
+export type CssHslString = CssString<"hsl">
+export type CssHwbString = CssString<"hwb">
 
 export const cssToSpace = {
 	hex: "sRGB",
@@ -346,7 +338,7 @@ export type CssToSpace = typeof cssToSpace
 
 export type DetectFn<S extends CssStringKey> = (
 	input: unknown,
-) => input is CssStringBrandMap[S]
+) => input is CssString<S>
 
 // TODO: Implement proper regex detection
 export const detectHex: DetectFn<"hex"> = (input): input is CssHexString =>
@@ -360,7 +352,7 @@ export const detectHwb: DetectFn<"hwb"> = (input): input is CssHwbString =>
 
 export type ParseFn<S extends CssStringKey> = (
 	input: string,
-) => ColorSpaceMap[CssToSpace[S]]
+) => ColorSpace<CssToSpace[S]>
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed parse functions
@@ -375,8 +367,8 @@ export const parseHwb: ParseFn<"hwb"> = (_input) =>
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 export type SerializeFn<S extends CssStringKey> = (
-	data: ColorSpaceMap[CssToSpace[S]],
-) => CssStringBrandMap[S]
+	data: ColorSpace<CssToSpace[S]>,
+) => CssString<S>
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed serialize functions
@@ -429,7 +421,7 @@ export const cssDefs: {
 export function convertCss<T extends CssStringKey>(
 	inputCss: unknown,
 	to: T,
-): CssStringBrandMap[T] {
+): CssString<T> {
 	for (const key of Object.keys(cssDefs) as CssStringKey[]) {
 		const def = cssDefs[key]
 		if (def.detect(inputCss)) {
@@ -440,8 +432,8 @@ export function convertCss<T extends CssStringKey>(
 			// TODO: Fix this
 			// Argument of type '({ r: number; g: number; b: number; } | { h: number; s: number; l: number; } | { h: number; w: number; b: number; }) & { readonly __brand: { readonly hex: "sRGB"; readonly rgb: "sRGB"; readonly hsl: "HSL"; readonly hwb: "HWB"; }[T]; }' is not assignable to parameter of type 'never'.
 			//   The intersection '{ r: number; g: number; b: number; } & { readonly __brand: "sRGB"; } & { h: number; s: number; l: number; } & { readonly __brand: "HSL"; } & { h: number; w: number; b: number; } & { readonly __brand: "HWB"; }' was reduced to 'never' because property '__brand' has conflicting types in some constituents.
-			//     Type '{ r: number; g: number; b: number; } & { readonly __brand: { readonly hex: "sRGB"; readonly rgb: "sRGB"; readonly hsl: "HSL"; readonly hwb: "HWB"; }[T]; }' is not assignable to type 'never'.
-			return def.serialize(converted) as CssStringBrandMap[T]
+			//     Type '{ r: number; g: number; b: number; } & { readonly __brand: { readonly hex: "sRGB"; readonly rgb: "sRGB"; readonly hsl: "HSL"; readonly hwb: "HWB"; }[T]; }' is not assignable to type 'never'.ts(2345)
+			return def.serialize(converted) as CssString<T>
 		}
 	}
 	throw new Error(`Unsupported CSS color format: ${String(inputCss)}`)
@@ -454,7 +446,7 @@ export function convertCss<T extends CssStringKey>(
 /* eslint-disable no-console */
 // TODO: Fix this
 // Argument of type 'Converter<"HWB", "HSV">' is not assignable to parameter of type '(input: { h: number; w: number; b: number; }) => { h: number; w: number; b: number; }'.
-//   Type 'Brand<"HSV", { h: number; s: number; v: number; }>' is missing the following properties from type '{ h: number; w: number; b: number; }': w, b
+//   Type 'ColorSpace<"HSV">' is missing the following properties from type '{ h: number; w: number; b: number; }': w, bts(2345)
 const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
