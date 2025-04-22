@@ -118,25 +118,20 @@ const proPhotoToLinearProPhoto: Converter<"ProPhoto", "Linear_ProPhoto"> = (
 ) => ({ r: 0, g: 0, b: 0 }) as Linear_ProPhoto
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-type FirstIn<Fns extends Converter<ColorSpaceKey, ColorSpaceKey>[]> =
-	Fns extends [Converter<infer A, ColorSpaceKey>, ...unknown[]] ? A : never
-
-type LastOut<Fns extends Converter<ColorSpaceKey, ColorSpaceKey>[]> =
-	Fns extends [...unknown[], Converter<ColorSpaceKey, infer Z>] ? Z : never
-
-export function pipe<
-	Fns extends [
-		Converter<ColorSpaceKey, ColorSpaceKey>,
+export function pipe<A extends ColorSpaceKey, Z extends ColorSpaceKey>(
+	...fns: [
+		Converter<A, ColorSpaceKey>,
 		...Converter<ColorSpaceKey, ColorSpaceKey>[],
-	],
->(...fns: Fns): Converter<FirstIn<Fns>, LastOut<Fns>> {
-	return ((input: ColorData<FirstIn<Fns>>) =>
-		fns.reduce(
-			// Argument of type 'unknown' is not assignable to parameter of type 'ColorSpace<keyof ColorDataMap>'.ts(2345)
-			(prev, fn) => fn(prev),
-			// Type 'unknown' does not satisfy the constraint 'keyof ColorDataMap'.ts(2344)
-			input as ColorData<unknown>,
-		)) as Converter<FirstIn<Fns>, LastOut<Fns>>
+		Converter<ColorSpaceKey, Z>,
+	]
+): Converter<A, Z> {
+	return (input: ColorData<A>) => {
+		let acc: unknown = input
+		for (const fn of fns) {
+			acc = fn(acc as Parameters<typeof fn>[0])
+		}
+		return acc as ColorSpace<Z>
+	}
 }
 
 export type Graph<K extends ColorSpaceKey> = {
