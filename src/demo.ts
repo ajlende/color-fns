@@ -165,13 +165,14 @@ export function composeConverters<
 	F extends K,
 	T extends K,
 >(graph: Graph<K>, path: K[]): Converter<F, T> {
-	return (input: ColorSpaceMap[F]) => {
-		let result: ColorSpaceMap[K] = input
+	return (input: ColorDataMap[F]) => {
+		let result: ColorDataMap[K] = input
 		for (let i = 0; i + 1 < path.length; i++) {
 			const a = path[i]
 			const b = path[i + 1]
+			// HACK: Casting to unknown to avoid type errors
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			result = graph[a]![b]!(result)
+			result = graph[a]![b]!(result) as unknown as ColorDataMap[K]
 		}
 		return result as ColorSpaceMap[T]
 	}
@@ -358,7 +359,7 @@ export type DetectFn<S extends CssStringKey> = (
 	input: unknown,
 ) => input is CssStringBrandMap[S]
 
-// TODO: Implement stubbed detect functions
+// TODO: Implement proper regex detection
 export const detectHex: DetectFn<"hex"> = (input): input is CssHexString =>
 	typeof input === "string" && input.startsWith("#")
 export const detectRgb: DetectFn<"rgb"> = (input): input is CssRgbString =>
@@ -391,13 +392,13 @@ export type SerializeFn<S extends CssStringKey> = (
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed serialize functions
 export const serializeHex: SerializeFn<"hex"> = (_data) =>
-	"#000" as CssStringBrandMap["hex"]
+	"#000" as CssHexString
 export const serializeRgb: SerializeFn<"rgb"> = (_data) =>
-	"rgb(0 0 0)" as CssStringBrandMap["rgb"]
+	"rgb(0 0 0)" as CssRgbString
 export const serializeHsl: SerializeFn<"hsl"> = (_data) =>
-	"hsl(0deg 0% 0%)" as CssStringBrandMap["hsl"]
+	"hsl(0deg 0% 0%)" as CssHslString
 export const serializeHwb: SerializeFn<"hwb"> = (_data) =>
-	"hwb(0deg 0% 0%)" as CssStringBrandMap["hwb"]
+	"hwb(0deg 0% 0%)" as CssHwbString
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 export interface CssDef<S extends CssStringKey> {
@@ -408,7 +409,7 @@ export interface CssDef<S extends CssStringKey> {
 }
 
 export const cssDefs: {
-	[K in keyof CssStringBrandMap]: CssDef<K>
+	[K in CssStringKey]: CssDef<K>
 } = {
 	hex: {
 		space: "sRGB",
@@ -436,11 +437,11 @@ export const cssDefs: {
 	},
 }
 
-export function convertCss<T extends keyof CssStringBrandMap>(
+export function convertCss<T extends CssStringKey>(
 	inputCss: unknown,
 	to: T,
 ): CssStringBrandMap[T] {
-	for (const key of Object.keys(cssDefs) as (keyof CssStringBrandMap)[]) {
+	for (const key of Object.keys(cssDefs) as CssStringKey[]) {
 		const def = cssDefs[key]
 		if (def.detect(inputCss)) {
 			const parsed = def.parse(inputCss)
@@ -457,6 +458,7 @@ export function convertCss<T extends keyof CssStringBrandMap>(
 // Demo
 // -------------------
 
+/* eslint-disable no-console */
 const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
@@ -471,3 +473,4 @@ console.log(out) // e.g. { h: 324, s: 1, l: 0.5 }
 
 const outCss = convertCss("#f09", "hsl")
 console.log(outCss) // e.g. "hsl(324deg 100% 50%)"
+/* eslint-enable no-console */
