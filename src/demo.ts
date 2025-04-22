@@ -121,8 +121,8 @@ const proPhotoToLinearProPhoto: Converter<"ProPhoto", "Linear_ProPhoto"> = (
 type Head<T extends unknown[]> = T extends [infer H, ...unknown[]] ? H : never
 type Last<T extends unknown[]> = T extends [...unknown[], infer L] ? L : never
 
-type ConverterInput<C> = C extends Converter<infer F, never> ? F : never
-type ConverterOutput<C> = C extends Converter<never, infer T> ? T : never
+type ConverterInput<C> = C extends Converter<infer F, ColorSpaceKey> ? F : never
+type ConverterOutput<C> = C extends Converter<ColorSpaceKey, infer T> ? T : never
 
 export function pipe<
 	Fns extends [
@@ -464,7 +464,14 @@ export function convertCss<T extends CssStringKey>(
 // -------------------
 
 /* eslint-disable no-console */
-const pipeOut = pipe(hwbToHsv, hsvToSrgb, srgbToHsl)({ h: 1, w: 0, b: 0.6 })
+// Argument of type 'Converter<"HWB", "HSV">' is not assignable to parameter of type 'Converter<keyof ColorDataMap, keyof ColorDataMap>'.
+//   Type 'keyof ColorDataMap' is not assignable to type '"HWB"'.
+//     Type '"Linear_sRGB"' is not assignable to type '"HWB"'. ts(2345)
+const pipeOut = pipe(
+	hwbToHsv,
+	hsvToSrgb,
+	srgbToHsl,
+)({ h: 1, w: 0, b: 0.6 } as HWB)
 console.log(pipeOut) // e.g. { h: 324, s: 1, l: 0.5 }
 
 const outD50 = convertD50("Jzazbz", "Lab_D50", { jz: 0, az: 0, bz: 0 })
