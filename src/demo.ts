@@ -30,6 +30,8 @@ export type ColorSpaceMap = {
 	[K in keyof ColorDataMap]: Brand<K, ColorDataMap[K]>
 }
 
+export type ColorSpace = keyof ColorDataMap
+
 export type Linear_sRGB = ColorSpaceMap["Linear_sRGB"]
 export type sRGB = ColorSpaceMap["sRGB"]
 export type HSL = ColorSpaceMap["HSL"]
@@ -46,10 +48,9 @@ export type ProPhoto = ColorSpaceMap["ProPhoto"]
 
 export type XYZ = XYZ_D65
 
-export type Converter<
-	F extends keyof ColorSpaceMap,
-	T extends keyof ColorSpaceMap,
-> = (input: ColorDataMap[F]) => ColorSpaceMap[T]
+export type Converter<F extends ColorSpace, T extends ColorSpace> = (
+	input: ColorDataMap[F],
+) => ColorSpaceMap[T]
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed converters
@@ -122,11 +123,11 @@ function pipe<T>(...fns: ((input: T) => T)[]): (input: T) => T {
 	return (input: T) => fns.reduce((acc, fn) => fn(acc), input)
 }
 
-export type Graph<K extends keyof ColorSpaceMap> = Partial<{
+export type Graph<K extends ColorSpace> = Partial<{
 	[F in K]: Partial<{ [T in K]: Converter<F, T> }>
 }>
 
-export function findPath<K extends keyof ColorSpaceMap>(
+export function findPath<K extends ColorSpace>(
 	graph: Graph<K>,
 	from: K,
 	to: K,
@@ -159,7 +160,7 @@ export function findPath<K extends keyof ColorSpaceMap>(
 }
 
 export function composeConverters<
-	K extends keyof ColorSpaceMap,
+	K extends ColorSpace,
 	F extends K,
 	T extends K,
 >(graph: Graph<K>, path: K[]): Converter<F, T> {
@@ -175,16 +176,13 @@ export function composeConverters<
 	}
 }
 
-export type GraphConvert<K extends keyof ColorSpaceMap> = <
-	F extends K,
-	T extends K,
->(
+export type GraphConvert<K extends ColorSpace> = <F extends K, T extends K>(
 	from: F,
 	to: T,
 	input: ColorDataMap[F],
 ) => ColorSpaceMap[T]
 
-export function createConvert<K extends keyof ColorSpaceMap>(
+export function createConvert<K extends ColorSpace>(
 	graph: Graph<K>,
 ): GraphConvert<K> {
 	return <F extends K, T extends K>(from: F, to: T, input: ColorDataMap[F]) => {
@@ -328,17 +326,21 @@ export const convert: GraphConvert<
 // String Formats
 // -------------------
 
-export type HexCssString = Brand<"hex", `#${string}`>
-export type RgbCssString = Brand<"rgb", `rgb(${string})`>
-export type HslCssString = Brand<"hsl", `hsl(${string})`>
-export type HwbCssString = Brand<"hwb", `hwb(${string})`>
-
 export interface CssStringMap {
-	hex: HexCssString
-	rgb: RgbCssString
-	hsl: HslCssString
-	hwb: HwbCssString
+	hex: `#${string}`
+	rgb: `rgb(${string})`
+	hsl: `hsl(${string})`
+	hwb: `hwb(${string})`
 }
+
+export type CssStringSpaceMap = {
+	[K in keyof CssStringMap]: Brand<K, CssStringMap[K]>
+}
+
+export type HexCssString = CssStringSpaceMap["hex"]
+export type RgbCssString = CssStringSpaceMap["rgb"]
+export type HslCssString = CssStringSpaceMap["hsl"]
+export type HwbCssString = CssStringSpaceMap["hwb"]
 
 export const cssToSpace = {
 	hex: "sRGB",
@@ -348,33 +350,33 @@ export const cssToSpace = {
 } as const
 export type CssToSpace = typeof cssToSpace
 
-export type DetectFn<S extends keyof CssStringMap> = (
+export type DetectFn<S extends keyof CssStringSpaceMap> = (
 	input: unknown,
-) => input is CssStringMap[S]
+) => input is CssStringSpaceMap[S]
 
 // TODO: Implement stubbed detect functions
 export const detectHex: DetectFn<"hex"> = (
 	input,
-): input is CssStringMap["hex"] =>
+): input is CssStringSpaceMap["hex"] =>
 	typeof input === "string" && input.startsWith("#")
 export const detectRgb: DetectFn<"rgb"> = (
 	input,
-): input is CssStringMap["rgb"] =>
+): input is CssStringSpaceMap["rgb"] =>
 	typeof input === "string" && input.startsWith("rgb(")
 export const detectHsl: DetectFn<"hsl"> = (
 	input,
-): input is CssStringMap["hsl"] =>
+): input is CssStringSpaceMap["hsl"] =>
 	typeof input === "string" && input.startsWith("hsl(")
 export const detectHwb: DetectFn<"hwb"> = (
 	input,
-): input is CssStringMap["hwb"] =>
+): input is CssStringSpaceMap["hwb"] =>
 	typeof input === "string" && input.startsWith("hwb(")
 
-export interface ParsedCssColor<S extends keyof CssStringMap> {
+export interface ParsedCssColor<S extends keyof CssStringSpaceMap> {
 	space: S
 	data: ColorSpaceMap[CssToSpace[S]]
 }
-export type ParseFn<S extends keyof CssStringMap> = (
+export type ParseFn<S extends keyof CssStringSpaceMap> = (
 	input: string,
 ) => ParsedCssColor<S>
 
@@ -398,9 +400,9 @@ export const parseHwb: ParseFn<"hwb"> = (_input) => ({
 })
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-export type SerializeFn<S extends keyof CssStringMap> = (
+export type SerializeFn<S extends keyof CssStringSpaceMap> = (
 	data: ColorSpaceMap[CssToSpace[S]],
-) => CssStringMap[S]
+) => CssStringSpaceMap[S]
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: Implement stubbed serialize functions
@@ -414,7 +416,7 @@ export const serializeHwb: SerializeFn<"hwb"> = (_data) =>
 	"hwb(0deg 0% 0%)" as HwbCssString
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-export interface CssDef<S extends keyof CssStringMap> {
+export interface CssDef<S extends keyof CssStringSpaceMap> {
 	space: CssToSpace[S]
 	detect: DetectFn<S>
 	parse: ParseFn<S>
@@ -422,7 +424,7 @@ export interface CssDef<S extends keyof CssStringMap> {
 }
 
 export const cssDefs: {
-	[K in keyof CssStringMap]: CssDef<K>
+	[K in keyof CssStringSpaceMap]: CssDef<K>
 } = {
 	hex: {
 		space: "sRGB",
@@ -450,18 +452,18 @@ export const cssDefs: {
 	},
 }
 
-export function convertCss<T extends keyof CssStringMap>(
+export function convertCss<T extends keyof CssStringSpaceMap>(
 	inputCss: unknown,
 	to: T,
-): CssStringMap[T] {
-	for (const key of Object.keys(cssDefs) as (keyof CssStringMap)[]) {
+): CssStringSpaceMap[T] {
+	for (const key of Object.keys(cssDefs) as (keyof CssStringSpaceMap)[]) {
 		const def = cssDefs[key]
 		if (def.detect(inputCss)) {
 			const parsed = def.parse(inputCss)
 			const fromSpace = def.space
 			const toSpace = cssToSpace[to]
 			const converted = convertWeb(fromSpace, toSpace, parsed.data)
-			return def.serialize(converted) as CssStringMap[T]
+			return def.serialize(converted) as CssStringSpaceMap[T]
 		}
 	}
 	throw new Error(`Unsupported CSS color format: ${String(inputCss)}`)
