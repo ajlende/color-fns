@@ -128,6 +128,11 @@ export function pipe<A extends ColorSpaceKey, Z extends ColorSpaceKey>(
 	return (input: ColorData<A>) => {
 		let acc: unknown = input
 		for (const fn of fns) {
+			// FIXME: Error
+			// Argument of type 'ColorSpace<A> | ColorSpace<keyof ColorDataMap>' is not assignable to parameter of type '(ColorDataMap[A] & { readonly __brand: A; } & ColorSpace<keyof ColorDataMap>) & ColorSpace<keyof ColorDataMap>'.
+			//   Type 'ColorSpace<A>' is not assignable to type '(ColorDataMap[A] & { readonly __brand: A; } & ColorSpace<keyof ColorDataMap>) & ColorSpace<keyof ColorDataMap>'.
+			//     Type 'ColorSpace<A>' is not assignable to type 'ColorDataMap[A] & { readonly __brand: A; } & { r: number; g: number; b: number; } & { readonly __brand: keyof ColorDataMap; } & { r: number; g: number; b: number; }'.
+			//       Type 'ColorSpace<A>' is not assignable to type '{ r: number; g: number; b: number; }'.
 			acc = fn(acc as Parameters<typeof fn>[0])
 		}
 		return acc as ColorSpace<Z>
