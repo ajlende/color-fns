@@ -2,9 +2,9 @@
 // Branding
 // -------------------
 
-type Brand<B extends string, T> = T & {
-	readonly __brand: B
-}
+declare const BRAND: unique symbol
+
+type Brand<K extends string, T> = T & { [BRAND]: K }
 
 // -------------------
 // Color Spaces
