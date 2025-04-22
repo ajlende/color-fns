@@ -192,9 +192,15 @@ export type GraphConvert<K extends ColorSpaceKey> = <F extends K, T extends K>(
 function createConvert<K extends ColorSpaceKey>(
 	graph: Graph<K>,
 ): GraphConvert<K> {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const converterCache = new Map<string, Converter<any, any>>()
 	return <F extends K, T extends K>(from: F, to: T, input: ColorData<F>) => {
-		const path = findPath(graph, from, to)
-		const fn = composeConverters<K, F, T>(graph, path)
+		const cacheKey = `${from}->${to}`
+		let fn = converterCache.get(cacheKey) as Converter<F, T> | undefined
+		if (!fn) {
+			const path = findPath(graph, from, to)
+			fn = composeConverters<K, F, T>(graph, path)
+		}
 		return fn(input as ColorSpace<F>)
 	}
 }
