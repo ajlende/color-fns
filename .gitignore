@@ -1,0 +1,18 @@
+# Dependencies
+node_modules
+
+# Output of 'npm pack'
+*.tgz
+
+# Build artifacts
+dist
+coverage
+docs/api
+docs/api.json
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Editors
+.idea
+.vscode
