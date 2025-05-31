@@ -1,20 +1,12 @@
-# Base Conversions
+# Supported Color Spaces
+
+This is the full list of color spaces that `color-tools` supports.
+
+Each node represents an available color space.
 
 Each edge represents an available conversion.
 
 ```mermaid
-%%{
-    init: {
-        'theme': 'base',
-        'themeVariables': {
-            'background': '#eeeee7',
-            'primaryColor': '#073746',
-            'primaryTextColor': '#eeeee7',
-            'primaryBorderColor': 'none',
-            'lineColor': '#009491'
-        }
-    }
-}%%
 graph LR
     XYZ_D65("XYZ D65")
 
@@ -111,7 +103,3 @@ graph LR
     sRGB --- HSV
     HSV --- HWB
 ```
-
-Adapted from [Color.js Supported Color Spaces].
-
-[Color.js Supported Color Spaces]: https://colorjs.io/docs/spaces
