@@ -1,6 +1,7 @@
-import type { sRGB, HSL } from "../_utils.js"
+import type { sRGB, HSL } from "../../_utils.js"
 
-import type { Converter } from "./_utils.js"
+import type { Converter } from "../_utils.js"
+import { convert } from "../_utils.js"
 
 /**
  * Convert from sRGB to HSL
@@ -10,7 +11,7 @@ import type { Converter } from "./_utils.js"
  *
  * @category Color Space Conversion
  */
-export const srgbToHsl: Converter<sRGB, HSL> = (input) => {
+export const srgbToHsl: Converter<sRGB, HSL> = convert((input) => {
 	const { r, g, b } = input
 
 	const max = Math.max(r, g, b)
@@ -52,4 +53,4 @@ export const srgbToHsl: Converter<sRGB, HSL> = (input) => {
 	}
 
 	return { h, s: s * 100, l: l * 100 } as HSL
-}
+})

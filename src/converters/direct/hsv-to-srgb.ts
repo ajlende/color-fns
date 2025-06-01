@@ -1,6 +1,7 @@
-import type { HSV, sRGB } from "../_utils.js"
+import type { HSV, sRGB } from "../../_utils.js"
 
-import type { Converter } from "./_utils.js"
+import type { Converter } from "../_utils.js"
+import { convert } from "../_utils.js"
 
 /**
  * Convert from HSV to sRGB
@@ -10,7 +11,7 @@ import type { Converter } from "./_utils.js"
  *
  * @category Color Space Conversion
  */
-export const hsvToSrgb: Converter<HSV, sRGB> = (input) => {
+export const hsvToSrgb: Converter<HSV, sRGB> = convert((input) => {
 	let { h, s, v } = input
 	h = h % 360
 
@@ -31,4 +32,4 @@ export const hsvToSrgb: Converter<HSV, sRGB> = (input) => {
 		g: f(3),
 		b: f(1),
 	} as sRGB
-}
+})

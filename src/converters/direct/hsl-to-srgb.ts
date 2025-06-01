@@ -1,6 +1,7 @@
-import type { HSL, sRGB } from "../_utils.js"
+import type { HSL, sRGB } from "../../_utils.js"
 
-import type { Converter } from "./_utils.js"
+import type { Converter } from "../_utils.js"
+import { convert } from "../_utils.js"
 
 function f(n: number, h: number, s: number, l: number) {
 	const k = (n + h / 30) % 12
@@ -16,7 +17,7 @@ function f(n: number, h: number, s: number, l: number) {
  *
  * @category Color Space Conversion
  */
-export const hslToSrgb: Converter<HSL, sRGB> = (input) => {
+export const hslToSrgb: Converter<HSL, sRGB> = convert((input) => {
 	let { h, s, l } = input
 
 	h = h % 360
@@ -33,4 +34,4 @@ export const hslToSrgb: Converter<HSL, sRGB> = (input) => {
 		g: f(8, h, s, l),
 		b: f(4, h, s, l),
 	} as sRGB
-}
+})

@@ -1,6 +1,7 @@
-import type { sRGB, sRGB_Linear } from "../_utils.js"
+import type { sRGB, sRGB_Linear } from "../../_utils.js"
 
-import type { Converter } from "./_utils.js"
+import type { Converter } from "../_utils.js"
+import { convert } from "../_utils.js"
 
 function f(val: number) {
 	const sign = val < 0 ? -1 : 1
@@ -21,10 +22,12 @@ function f(val: number) {
  *
  * @category Color Space Conversion
  */
-export const srgbLinearToSrgb: Converter<sRGB_Linear, sRGB> = (input) => {
-	return {
-		r: f(input.r),
-		g: f(input.g),
-		b: f(input.b),
-	} as sRGB
-}
+export const srgbLinearToSrgb: Converter<sRGB_Linear, sRGB> = convert(
+	(input) => {
+		return {
+			r: f(input.r),
+			g: f(input.g),
+			b: f(input.b),
+		} as sRGB
+	},
+)

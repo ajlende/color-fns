@@ -1,6 +1,11 @@
-import type { ColorData, ColorSpace, UnknownColor, ColorOf } from "../_utils.js"
+import type {
+	ColorData,
+	ColorSpace,
+	UnknownColor,
+	ColorOf,
+} from "../../_utils.js"
 
-import type { Converter } from "../convert/_utils.js"
+import type { Converter } from "../_utils.js"
 
 type SpaceConverter<
 	C extends UnknownColor,

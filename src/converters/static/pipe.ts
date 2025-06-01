@@ -1,6 +1,6 @@
-import type { ColorData, UnknownColor } from "../_utils.js"
+import type { ColorData, UnknownColor } from "../../_utils.js"
 
-import type { Converter, UnknownConverter } from "../convert/_utils.js"
+import type { Converter, UnknownConverter } from "../_utils.js"
 
 /**
  * Pipes a series of color space conversion functions together.

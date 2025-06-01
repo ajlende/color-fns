@@ -1,6 +1,7 @@
-import type { sRGB_Linear, XYZ_D65 } from "../_utils.js"
+import type { sRGB_Linear, XYZ_D65 } from "../../_utils.js"
 
-import type { Converter } from "./_utils.js"
+import type { Converter } from "../_utils.js"
+import { convert } from "../_utils.js"
 
 /**
  * This matrix was calculated directly from the RGB and white chromaticities
@@ -21,12 +22,14 @@ const M = [
  *
  * @category Color Space Conversion
  */
-export const srgbLinearToXyzD65: Converter<sRGB_Linear, XYZ_D65> = (input) => {
-	const { r, g, b } = input
+export const srgbLinearToXyzD65: Converter<sRGB_Linear, XYZ_D65> = convert(
+	(input) => {
+		const { r, g, b } = input
 
-	const x = M[0][0] * r + M[0][1] * g + M[0][2] * b
-	const y = M[1][0] * r + M[1][1] * g + M[1][2] * b
-	const z = M[2][0] * r + M[2][1] * g + M[2][2] * b
+		const x = M[0][0] * r + M[0][1] * g + M[0][2] * b
+		const y = M[1][0] * r + M[1][1] * g + M[1][2] * b
+		const z = M[2][0] * r + M[2][1] * g + M[2][2] * b
 
-	return { x, y, z } as XYZ_D65
-}
+		return { x, y, z } as XYZ_D65
+	},
+)

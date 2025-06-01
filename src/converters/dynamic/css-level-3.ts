@@ -1,7 +1,7 @@
-import type { sRGB, HSL } from "../_utils.js"
+import type { sRGB, HSL } from "../../_utils.js"
 
-import { srgbToHsl } from "../convert/srgb-to-hsl.js"
-import { hslToSrgb } from "../convert/hsl-to-srgb.js"
+import { srgbToHsl } from "../direct/srgb-to-hsl.js"
+import { hslToSrgb } from "../direct/hsl-to-srgb.js"
 
 import type { ColorSpaceGraph, DynamicConverter } from "./_utils.js"
 

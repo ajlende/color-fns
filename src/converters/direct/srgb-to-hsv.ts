@@ -1,6 +1,7 @@
-import type { sRGB, HSV } from "../_utils.js"
+import type { sRGB, HSV } from "../../_utils.js"
 
-import type { Converter } from "./_utils.js"
+import type { Converter } from "../_utils.js"
+import { convert } from "../_utils.js"
 
 /**
  * Convert from sRGB to HSV
@@ -10,7 +11,7 @@ import type { Converter } from "./_utils.js"
  *
  * @category Color Space Conversion
  */
-export const srgbToHsv: Converter<sRGB, HSV> = (input) => {
+export const srgbToHsv: Converter<sRGB, HSV> = convert((input) => {
 	const { r, g, b } = input
 
 	const max = Math.max(r, g, b)
@@ -46,4 +47,4 @@ export const srgbToHsv: Converter<sRGB, HSV> = (input) => {
 	}
 
 	return { h, s: s * 100, v: v * 100 } as HSV
-}
+})

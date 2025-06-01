@@ -1,6 +1,7 @@
-import type { HWB, HSV } from "../_utils.js"
+import type { HWB, HSV } from "../../_utils.js"
 
-import type { Converter } from "./_utils.js"
+import type { Converter } from "../_utils.js"
+import { convert } from "../_utils.js"
 
 /**
  * Convert from HWB to HSV
@@ -10,7 +11,7 @@ import type { Converter } from "./_utils.js"
  *
  * @category Color Space Conversion
  */
-export const hwbToHsv: Converter<HWB, HSV> = (input) => {
+export const hwbToHsv: Converter<HWB, HSV> = convert((input) => {
 	const { h, w, b } = input
 
 	const w2 = w / 100
@@ -25,4 +26,4 @@ export const hwbToHsv: Converter<HWB, HSV> = (input) => {
 	const v = 1 - b2
 	const s = v === 0 ? 0 : 1 - w2 / v
 	return { h, s: s * 100, v: v * 100 } as HSV
-}
+})
