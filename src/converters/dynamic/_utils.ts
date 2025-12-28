@@ -3,7 +3,7 @@ import type {
 	ColorSpace,
 	UnknownColor,
 	ColorOf,
-} from "../../_utils.js"
+} from "../../core/_utils.js"
 
 import type { Converter } from "../_utils.js"
 

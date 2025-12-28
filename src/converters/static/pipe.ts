@@ -1,4 +1,4 @@
-import type { ColorData, UnknownColor } from "../../_utils.js"
+import type { ColorData, UnknownColor } from "../../core/_utils.js"
 
 import type { Converter, UnknownConverter } from "../_utils.js"
 

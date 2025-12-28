@@ -1,4 +1,11 @@
-import type { HSL, HSV, HWB, sRGB_Linear, sRGB, XYZ_D65 } from "../../_utils.js"
+import type {
+	HSL,
+	HSV,
+	HWB,
+	sRGB_Linear,
+	sRGB,
+	XYZ_D65,
+} from "../../core/_utils.js"
 
 import { hslToSrgb } from "../direct/hsl-to-srgb.js"
 import { hsvToHwb } from "../direct/hsv-to-hwb.js"

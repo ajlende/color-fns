@@ -1,7 +1,7 @@
-import type { XYZ_D65, sRGB_Linear } from "../../_utils.js"
+import type { XYZ_D65, sRGB_Linear } from "../../core/_utils.js"
 
 import type { Converter } from "../_utils.js"
-import { convert } from "../_utils.js"
+import { convert } from "./_utils.js"
 
 /**
  * This matrix was calculated directly from the RGB and white chromaticities

@@ -1,7 +1,8 @@
-import type { HSL, sRGB } from "../../_utils.js"
+import type { HSL, sRGB } from "../../core/_utils.js"
+import { color } from "../../core/_utils.js"
 
 import type { Converter } from "../_utils.js"
-import { convert } from "../_utils.js"
+import { convert } from "./_utils.js"
 
 function f(n: number, h: number, s: number, l: number) {
 	const k = (n + h / 30) % 12
@@ -29,9 +30,9 @@ export const hslToSrgb: Converter<HSL, sRGB> = convert((input) => {
 	s /= 100
 	l /= 100
 
-	return {
+	return color("sRGB", {
 		r: f(0, h, s, l),
 		g: f(8, h, s, l),
 		b: f(4, h, s, l),
-	} as sRGB
+	})
 })

@@ -1,7 +1,7 @@
-import type { sRGB, HSL } from "../../_utils.js"
+import type { sRGB, HSL } from "../../core/_utils.js"
 
 import type { Converter } from "../_utils.js"
-import { convert } from "../_utils.js"
+import { convert } from "./_utils.js"
 
 /**
  * Convert from sRGB to HSL

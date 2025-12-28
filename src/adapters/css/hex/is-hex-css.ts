@@ -1,4 +1,4 @@
-import type { Hex } from "./_utils.js"
+import type { HexCss } from "./_utils.js"
 
 /**
  * Test if the given color is a Hex color.
@@ -7,12 +7,11 @@ import type { Hex } from "./_utils.js"
  *
  * @return True if the color is a Hex color
  */
-export function isHex(color: unknown): color is Hex {
+export function isHexCss(color: unknown): color is HexCss {
 	// TODO: Test regex performance
 	return (
 		typeof color === "string" &&
-		// [4, 5, 7, 9].includes(color.length) &&
-		[4, 7].includes(color.length) &&
+		[4, 5, 7, 9].includes(color.length) &&
 		/^#[0-9a-fA-F]+$/.test(color)
 	)
 }

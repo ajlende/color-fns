@@ -1,7 +1,7 @@
-import type { HWB, HSV } from "../../_utils.js"
+import type { HWB, HSV } from "../../core/_utils.js"
 
 import type { Converter } from "../_utils.js"
-import { convert } from "../_utils.js"
+import { convert } from "./_utils.js"
 
 /**
  * Convert from HWB to HSV

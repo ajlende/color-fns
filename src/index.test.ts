@@ -1,6 +1,6 @@
 import test from "ava"
 
-import type { HWB } from "./_utils.js"
+import type { HWB } from "./core/spaces.js"
 
 import { pipe, srgbToHsv, hsvToHwb, convertAny } from "./index.js"
 

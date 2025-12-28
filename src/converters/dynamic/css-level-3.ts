@@ -1,4 +1,4 @@
-import type { sRGB, HSL } from "../../_utils.js"
+import type { sRGB, HSL } from "../../core/_utils.js"
 
 import { srgbToHsl } from "../direct/srgb-to-hsl.js"
 import { hslToSrgb } from "../direct/hsl-to-srgb.js"

@@ -1,4 +1,4 @@
-import { ColorData, UnknownColor } from "../_utils.js"
+import { ColorData, UnknownColor } from "../core/_utils.js"
 
 /**
  * A function that converts a color space to another color space.
